@@ -25,7 +25,7 @@ def titleize word
     little = ["and", "the", "over"]
     word = word.split(" ")
     word.map do |single|
-        if little.any? {|word| single.include?(word)} && result != ""
+        if little.any? {|word| single == word} && result != ""
             single
         else
             single = single.capitalize
