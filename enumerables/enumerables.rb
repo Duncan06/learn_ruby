@@ -1,8 +1,9 @@
 module Enumerable
     def my_each
+        arr = is_a?(Range) ? to_a : self
         i = 0
-        while i < self.size
-            yield self[i]
+        while i < arr.size
+            yield arr[i]
             i += 1
         end
     end
@@ -71,9 +72,20 @@ module Enumerable
         return arr
     end
 
-    def my_inject()
-        yield ()
-        return val
+    def my_inject(*args)
+        routine = args[0] if args[0].is_a? Integer
+
+        if args[0].is_a? Symbol
+            my_each{ |i| routine = routine ? routine.send(args[0], i) : i}
+            routine
+        
+        else
+            sum = 0
+            my_each do |x|
+                sum = yield(sum, x)
+            end
+            sum
+        end
     end
 end
 
@@ -86,3 +98,9 @@ end
 # puts [4,5,6].my_count{|x| x%2 == 0}
 # puts [1,2,3,4].my_map{|x| x**2}
 puts (5..10).my_inject { |sum, n| sum + n }
+
+def multiply_els
+    [2,4,5].my_inject(:*)
+end
+
+puts multiply_els()
