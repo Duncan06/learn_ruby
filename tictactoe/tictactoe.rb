@@ -195,7 +195,7 @@ class TicTacToe
     
     def decider(x, y)
         if @board[x][y] == "#{x}-#{y}"
-            if turn % 2 = 0
+            if turn % 2 == 0
                 @board[x][y] = one
                 true
             else
