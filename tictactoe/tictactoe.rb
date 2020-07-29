@@ -14,49 +14,64 @@ class TicTacToe
 
         one, two = get_symbols()
 
-        game = TicTacToe.new(one, two)
-
         game_playing = true
 
         turn = 0
 
         while game_playing
 
-            display_board()
+            display_board(turn)
 
-            step = move(turn)
+            step, symbol = move(turn, one, two)
 
-            empty = available_tile(step)
+            if turn % 2 == 0
+                empty = available_tile(step, one)
+
+            else
+                empty = available_tile(step, two)
+            end
 
             while !empty 
 
                 puts "This is already taken."
 
-                step = move(turn)
+                step = move(turn, one, two)
 
-                empty = available_tile(step)
+                empty = available_tile(step, symbol)
             
             end
 
-            if turns < 3
+            if turn > 3
                 if player_wins(one) 
+                    display_board(turn)
                     puts "#{one} wins!"
                     game_playing = false
 
                 elsif player_wins(two)
+                    display_board(turn)
                     puts "#{two} wins!"
                     game_playing = false
                 end
-
+            end
             turn += 1
+
+            if turn == 9 || player_wins(one) || player_wins(two)
+
+                if turn == 9 && !player_wins(one) && !player_wins(two)
+                    puts "Tied Game."
+                end
+                
+                if reset()
+                    game_playing = true
+                    turn = 0
+                end
             end
         end
     end
 
 
     def player_wins(symbol)
-        
-        player_symbol = symbol
+
         row0 = @board[0]
         row1 = @board[1]
         row2 = @board[2]
@@ -66,17 +81,17 @@ class TicTacToe
         match0 = row0[0] == symbol && row1[0] == symbol && row2[0] == symbol
         match1 = row0[1] == symbol && row1[1] == symbol && row2[1] == symbol
         match2 = row0[2] == symbol && row1[2] == symbol && row2[2] == symbol
-
+1
         ## Check for any matches
         if 
             match0 ||
             match1 ||
             match2 ||
-            row0.each {|x| x == symbol} ||
-            row1.each {|x| x == symbol} ||
-            row2.each {|x| x == symbol} ||
-            (row0[0] == symbol && row[1] == symbol && row2[2] == symbol) ||
-            (row0[2] == symbol && row[1] == symbol && row2[0] == symbol)
+            row0.all? {|x| x == symbol} ||
+            row1.all? {|x| x == symbol} ||
+            row2.all? {|x| x == symbol} ||
+            (row0[0] == symbol && row1[1] == symbol && row2[2] == symbol) ||
+            (row0[2] == symbol && row1[1] == symbol && row2[0] == symbol)
             
             return true
 
@@ -87,27 +102,27 @@ class TicTacToe
 
     def display_board(turn)
 
-        board00 = @board[0][0].legnth < 1? "0-0" : @board[0][0]
-        board01 = @board[0][1].legnth < 1? "0-1" : @board[0][1]
-        board02 = @board[0][2].legnth < 1? "0-2" : @board[0][2]
-        board10 = @board[1][0].legnth < 1? "1-0" : @board[1][0]
-        board11 = @board[1][1].legnth < 1? "1-1" : @board[1][1]
-        board12 = @board[1][2].legnth < 1? "1-2" : @board[1][2]
-        board20 = @board[2][0].legnth < 1? "2-0" : @board[2][0]
-        board21 = @board[2][1].legnth < 1? "2-1" : @board[2][1]
-        board22 = @board[2][2].legnth < 1? "2-2" : @board[2][2]
+        board00 = @board[0][0].length < 1? "a" : @board[0][0]
+        board01 = @board[0][1].length < 1? "b" : @board[0][1]
+        board02 = @board[0][2].length < 1? "c" : @board[0][2]
+        board10 = @board[1][0].length < 1? "d" : @board[1][0]
+        board11 = @board[1][1].length < 1? "e" : @board[1][1]
+        board12 = @board[1][2].length < 1? "f" : @board[1][2]
+        board20 = @board[2][0].length < 1? "g" : @board[2][0]
+        board21 = @board[2][1].length < 1? "h" : @board[2][1]
+        board22 = @board[2][2].length < 1? "i" : @board[2][2]
 
-        puts "                 |                 |                
-                  #{board00}   |    #{board01}   | #{board02}
-                               |                 |
-               ---------------------------------------------------
-                               |                 |
-                  #{board10}   |    #{board11}   | #{board12}
-                               |                 |
-               ----------------------------------------------------
-                               |                 |
-                  #{board20}   |    #{board21}   | #{board22}
-                               |                 |                 "
+        puts "                                  
+                 #{board00}      |        #{board01}        |    #{board02}
+                        |                 |
+        ---------------------------------------------------
+                        |                 |
+                  #{board10}     |        #{board11}        |    #{board12}
+                        |                 |
+        ----------------------------------------------------
+                        |                 |
+                  #{board20}     |        #{board21}        |    #{board22}
+                        |                 |                 "
     end
 
     def get_symbols()
@@ -131,64 +146,70 @@ class TicTacToe
         return p1, p2
     end
 
-    def move(turn)
+    def move(turn, one, two)
         if turn % 2 == 0
             puts "Where would you like to move player one?"
             move = gets.chomp
-            while move.length != 3
+            symbol = one
+            while move.length != 1
                 puts "Enter correct format"
                 move = gets.chomp
+                symbol = one
             end
+            return move, symbol
         end
 
         if turn % 2 == 1
             puts "Where would you like to move player two?"
             move = gets.chomp
-            while move.length != 3
+            symbol = two
+            while move.length != 1
                 puts "Enter correct format"
                 move = gets.chomp
+                symbol = two
             end
+            return move, symbol
         end
     end
 
     def available_tile(step, symbol)
         case step
 
-        when "0-0"
+        when "a"
 
-            decider(0,0)
+            decider(0,0, symbol)
     
-        when "0-1"
+        when "b"
 
-            decider(0,1)
+            decider(0,1, symbol)
         
-        when "0-2"
+        when "c"
 
-            decider(0,2)
+            decider(0,2, symbol)
 
-        when "1-0"
+        when "d"
 
-            decider(1,0)
+            decider(1,0, symbol)
 
-        when "1-1"
+        when "e"
 
-            decider(1,1)
+            decider(1,1, symbol)
 
-        when "1-2"
+        when "f"
 
-            decider(1,2)
+            decider(1,2, symbol)
 
-        when "2-0"
+        when "g"
 
-            decider(2,0)
+            decider(2,0, symbol)
 
-        when "2-1"
+        when "h"
 
-            decider(2,1)
+            decider(2,1, symbol)
 
-        when "2-2"
+        when "i"
 
-            decider(2,2)
+            decider(2,2, symbol)
 
         else
             puts "Please use correct format."
@@ -196,17 +217,26 @@ class TicTacToe
         end
     end
     
-    def decider(x, y)
-        if @board[x][y] == ""
-            if turn % 2 == 0
-                @board[x][y] = one
-                true
-            else
-                @board[x][y] = two
-                true
-            end
+    def decider(x, y, symbol)
+        if @board[x][y].length == 0
+            @board[x][y] = symbol
+            return true
         else
             return false
+        end
+    end
+
+    def reset()
+        puts "Play again? y/n "
+        answer = gets.chomp
+        if answer == "y"
+            @board = [
+                [[],[],[]],
+            [[],[],[]],
+            [[],[],[]]
+            ]
+        else
+            false
         end
     end
 end
