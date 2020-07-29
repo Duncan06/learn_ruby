@@ -1,15 +1,10 @@
 class TicTacToe
-    def initialize(p1, p2)
+    def initialize()
         @board = [
                   [[],[],[]],
                   [[],[],[]],
                   [[],[],[]]
                  ]
-        
-        @p1 = p1
-
-        @p2 = p2
-
     end
         
     def play_game()
@@ -154,51 +149,63 @@ class TicTacToe
         end
     end
 
-    def available_tile(step)
+    def available_tile(step, symbol)
         case step
 
         when "0-0"
 
-            @board[0][0] == "0-0"
+            decider(0,0)
     
         when "0-1"
 
-            @board[0][1] == "0-1"
+            decider(0,1)
         
         when "0-2"
 
-            @board[0][2] == "0-2"
+            decider(0,2)
 
         when "1-0"
 
-            @board[1][0] == "1-0"
-
+            decider(1,0)
         when "1-1"
 
-            @board[1][1] == "1-1"
+            decider(1,1)
 
         when "1-2"
 
-            @board[1][2] == "1-2"
+            decider(1,2)
 
         when "2-0"
 
-            @board[2][0] == "2-0"
+            decider(2,0)
 
         when "2-1"
 
-            @board[2][1] == "2-1"
+            decider(2,1)
 
         when "2-2"
 
-            @board[2][2] == "2-2"
+            decider(2,2)
 
         else
             puts "Please use correct format."
             false
         end
     end
+    
+    def decider(x, y)
+        if @board[x][y] == "#{x}-#{y}"
+            if turn % 2 = 0
+                @board[x][y] = one
+                true
+            else
+                @board[x][y] = two
+                true
+            end
+        else
+            return false
+        end
 end
 
-x = TicTacToe("O", "X").new
+x = TicTacToe().new
 x.play_game
