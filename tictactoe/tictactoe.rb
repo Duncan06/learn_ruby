@@ -47,9 +47,9 @@ class TicTacToe
                     puts "#{two} wins!"
                     game_playing = false
                 end
-            end
 
             turn += 1
+            end
         end
     end
 
@@ -87,15 +87,15 @@ class TicTacToe
 
     def display_board(turn)
 
-        board00 = if @board[0][0].legnth < 1? "0-0" : @board[0][0]
-        board01 = if @board[0][1].legnth < 1? "0-1" : @board[0][1]
-        board02 = if @board[0][2].legnth < 1? "0-2" : @board[0][2]
-        board10 = if @board[1][0].legnth < 1? "1-0" : @board[1][0]
-        board11 = if @board[1][1].legnth < 1? "1-1" : @board[1][1]
-        board12 = if @board[1][2].legnth < 1? "1-2" : @board[1][2]
-        board20 = if @board[2][0].legnth < 1? "2-0" : @board[2][0]
-        board21 = if @board[2][1].legnth < 1? "2-1" : @board[2][1]
-        board22 = if @board[2][2].legnth < 1? "2-2" : @board[2][2]
+        board00 = @board[0][0].legnth < 1? "0-0" : @board[0][0]
+        board01 = @board[0][1].legnth < 1? "0-1" : @board[0][1]
+        board02 = @board[0][2].legnth < 1? "0-2" : @board[0][2]
+        board10 = @board[1][0].legnth < 1? "1-0" : @board[1][0]
+        board11 = @board[1][1].legnth < 1? "1-1" : @board[1][1]
+        board12 = @board[1][2].legnth < 1? "1-2" : @board[1][2]
+        board20 = @board[2][0].legnth < 1? "2-0" : @board[2][0]
+        board21 = @board[2][1].legnth < 1? "2-1" : @board[2][1]
+        board22 = @board[2][2].legnth < 1? "2-2" : @board[2][2]
 
         puts "                 |                 |                
                   #{board00}   |    #{board01}   | #{board02}
@@ -139,6 +139,7 @@ class TicTacToe
                 puts "Enter correct format"
                 move = gets.chomp
             end
+        end
 
         if turn % 2 == 1
             puts "Where would you like to move player two?"
@@ -192,10 +193,11 @@ class TicTacToe
         else
             puts "Please use correct format."
             false
+        end
     end
     
     def decider(x, y)
-        if @board[x][y] == "#{x}-#{y}"
+        if @board[x][y] == ""
             if turn % 2 == 0
                 @board[x][y] = one
                 true
@@ -208,3 +210,6 @@ class TicTacToe
         end
     end
 end
+
+x = TicTacToe.new()
+x.play_game()
