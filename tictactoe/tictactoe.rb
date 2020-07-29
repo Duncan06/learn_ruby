@@ -1,7 +1,7 @@
 class TicTacToe
 
     attr_accessor :board
-    
+
     def initialize()
         @board = [
                   [[],[],[]],
@@ -36,14 +36,14 @@ class TicTacToe
 
                 empty = available_tile(step)
             
+            end
 
             if turns < 3
                 if player_wins(one) 
                     puts "#{one} wins!"
                     game_playing = false
-                end
 
-                if player_wins(two)
+                elsif player_wins(two)
                     puts "#{two} wins!"
                     game_playing = false
                 end
@@ -108,7 +108,6 @@ class TicTacToe
                                |                 |
                   #{board20}   |    #{board21}   | #{board22}
                                |                 |                 "
-        end
     end
 
     def get_symbols()
@@ -207,7 +206,5 @@ class TicTacToe
         else
             return false
         end
+    end
 end
-
-x = TicTacToe.new()
-x.play_game()
