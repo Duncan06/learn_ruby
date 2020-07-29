@@ -20,19 +20,38 @@ class TicTacToe
 
         game_playing = true
 
+        turn = 0
+
         while game_playing
 
             display_board()
 
-            if player_wins(one) 
-                puts "#{one} wins!"
-                game_playing = false
+            step = move(turn)
+
+            empty = available_tile(step)
+
+            while !empty 
+
+                puts "This is already taken."
+
+                step = move(turn)
+
+                empty = available_tile(step)
+            
+
+            if turns < 3
+                if player_wins(one) 
+                    puts "#{one} wins!"
+                    game_playing = false
+                end
+
+                if player_wins(two)
+                    puts "#{two} wins!"
+                    game_playing = false
+                end
             end
 
-            if player_wins(two)
-                puts "#{two} wins!"
-                game_playing = false
-            end
+            turn += 1
         end
     end
 
@@ -50,7 +69,7 @@ class TicTacToe
         match1 = row0[1] == symbol && row1[1] == symbol && row2[1] == symbol
         match2 = row0[2] == symbol && row1[2] == symbol && row2[2] == symbol
 
-        ## Check for any matchees
+        ## Check for any matches
         if 
             match0 ||
             match1 ||
@@ -91,9 +110,7 @@ class TicTacToe
                                |                 |
                   #{board20}   |    #{board21}   | #{board22}
                                |                 |                 "
-
-        next = move(turn)
-        if next == 
+        end
     end
 
     def get_symbols()
@@ -137,4 +154,51 @@ class TicTacToe
         end
     end
 
+    def available_tile(step)
+        case step
+
+        when "0-0"
+
+            @board[0][0] == "0-0"
+    
+        when "0-1"
+
+            @board[0][1] == "0-1"
+        
+        when "0-2"
+
+            @board[0][2] == "0-2"
+
+        when "1-0"
+
+            @board[1][0] == "1-0"
+
+        when "1-1"
+
+            @board[1][1] == "1-1"
+
+        when "1-2"
+
+            @board[1][2] == "1-2"
+
+        when "2-0"
+
+            @board[2][0] == "2-0"
+
+        when "2-1"
+
+            @board[2][1] == "2-1"
+
+        when "2-2"
+
+            @board[2][2] == "2-2"
+
+        else
+            puts "Please use correct format."
+            false
+        end
+    end
 end
+
+x = TicTacToe("O", "X").new
+x.play_game
