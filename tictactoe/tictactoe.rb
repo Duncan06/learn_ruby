@@ -1,4 +1,7 @@
 class TicTacToe
+
+    attr_accessor :board
+    
     def initialize()
         @board = [
                   [[],[],[]],
@@ -137,7 +140,6 @@ class TicTacToe
                 puts "Enter correct format"
                 move = gets.chomp
             end
-        end
 
         if turn % 2 == 1
             puts "Where would you like to move player two?"
@@ -167,6 +169,7 @@ class TicTacToe
         when "1-0"
 
             decider(1,0)
+
         when "1-1"
 
             decider(1,1)
@@ -190,7 +193,6 @@ class TicTacToe
         else
             puts "Please use correct format."
             false
-        end
     end
     
     def decider(x, y)
@@ -207,5 +209,5 @@ class TicTacToe
         end
 end
 
-x = TicTacToe().new
-x.play_game
+x = TicTacToe.new()
+x.play_game()
