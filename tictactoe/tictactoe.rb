@@ -15,30 +15,29 @@ class TicTacToe
         game_playing = true
 
         turn = 0
-
+        
+        ## Starts game
         while game_playing
+
+            current_player = turn % 2 == 0 ? one : two
 
             display_board(turn)
 
-            step, symbol = move(turn, one, two)
+            step = move(turn)
 
-            if turn % 2 == 0
-                empty = available_tile(step, one)
-
-            else
-                empty = available_tile(step, two)
-            end
+            empty = available_tile(step, current_player)
 
             while !empty 
 
                 puts "This is already taken."
 
-                step = move(turn, one, two)
+                step = move(turn)
 
-                empty = available_tile(step, symbol)
+                empty = available_tile(step, current_player)
             
             end
 
+            ## Check for wins when possible.
             if turn > 3
                 if player_wins(one) 
                     display_board(turn)
@@ -53,6 +52,7 @@ class TicTacToe
             end
             turn += 1
 
+            ## Declare end of game, ask for rematch.
             if turn == 9 || player_wins(one) || player_wins(two)
 
                 if turn == 9 && !player_wins(one) && !player_wins(two)
@@ -67,7 +67,7 @@ class TicTacToe
         end
     end
 
-
+    ## Checks for win.
     def player_wins(symbol)
 
         row0 = @board[0]
@@ -79,17 +79,21 @@ class TicTacToe
         match0 = row0[0] == symbol && row1[0] == symbol && row2[0] == symbol
         match1 = row0[1] == symbol && row1[1] == symbol && row2[1] == symbol
         match2 = row0[2] == symbol && row1[2] == symbol && row2[2] == symbol
+
+        ## Check diagnals
+        match3 = row0[0] == symbol && row1[1] == symbol && row2[2] == symbol
+        match4 = row0[2] == symbol && row1[1] == symbol && row2[0] == symbol
 1
         ## Check for any matches
         if 
             match0 ||
             match1 ||
             match2 ||
+            match3 ||
+            match4 ||
             row0.all? {|x| x == symbol} ||
             row1.all? {|x| x == symbol} ||
-            row2.all? {|x| x == symbol} ||
-            (row0[0] == symbol && row1[1] == symbol && row2[2] == symbol) ||
-            (row0[2] == symbol && row1[1] == symbol && row2[0] == symbol)
+            row2.all? {|x| x == symbol} 
             
             return true
 
@@ -98,6 +102,7 @@ class TicTacToe
         return false
     end
 
+    # Visual board to see plays on command line.
     def display_board(turn)
 
         board00 = @board[0][0].length < 1? "a" : @board[0][0]
@@ -123,6 +128,8 @@ class TicTacToe
                         |                 |                 "
     end
 
+
+    ## Allows player to customize symbol.
     def get_symbols()
 
         puts "What would you like player one's marker to be?"
@@ -144,32 +151,20 @@ class TicTacToe
         return p1, p2
     end
 
-    def move(turn, one, two)
-        if turn % 2 == 0
-            puts "Where would you like to move player one?"
+    ## Receives desired move of player.
+    def move(turn)
+        player = turn % 2 == 0 ? "one" : "two"
+        puts "Where would you like to move player #{player}?"
+        move = gets.chomp
+        while move.length != 1
+            puts "Enter correct format"
             move = gets.chomp
-            symbol = one
-            while move.length != 1
-                puts "Enter correct format"
-                move = gets.chomp
-                symbol = one
-            end
-            return move, symbol
         end
-
-        if turn % 2 == 1
-            puts "Where would you like to move player two?"
-            move = gets.chomp
-            symbol = two
-            while move.length != 1
-                puts "Enter correct format"
-                move = gets.chomp
-                symbol = two
-            end
-            return move, symbol
-        end
+        move
     end
 
+
+    ## Checks if square is occupied or empty after looking up square.
     def available_tile(step, symbol)
         case step
 
@@ -216,12 +211,19 @@ class TicTacToe
     end
     
     def decider(x, y, symbol)
+
         if @board[x][y].length == 0
+
             @board[x][y] = symbol
+
             return true
+
         else
+
             return false
+
         end
+
     end
 
     def reset()
