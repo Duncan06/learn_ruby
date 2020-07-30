@@ -84,9 +84,15 @@ class TicTacToe
         match1 = column.all? {|x| x[1] == symbol}
         match2 = column.all? {|x| x[2] == symbol}
 
+
+        ## Check if row matches
+        match3 = row0.all? {|x| x == symbol}
+        match4 = row1.all? {|x| x == symbol} 
+        match5 = row2.all? {|x| x == symbol} 
+
         ## Check diagnals
-        match3 = row0[0] == symbol && row1[1] == symbol && row2[2] == symbol
-        match4 = row0[2] == symbol && row1[1] == symbol && row2[0] == symbol
+        match6 = row0[0] == symbol && row1[1] == symbol && row2[2] == symbol
+        match7 = row0[2] == symbol && row1[1] == symbol && row2[0] == symbol
 1
         ## Check for any matches
         if 
@@ -95,9 +101,9 @@ class TicTacToe
             match2 ||
             match3 ||
             match4 ||
-            row0.all? {|x| x == symbol} ||
-            row1.all? {|x| x == symbol} ||
-            row2.all? {|x| x == symbol} 
+            match5 ||
+            match6 ||
+            match7
             
             return true
 
