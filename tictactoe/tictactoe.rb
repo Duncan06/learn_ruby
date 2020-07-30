@@ -71,14 +71,18 @@ class TicTacToe
     def player_wins(symbol)
 
         row0 = @board[0]
+
         row1 = @board[1]
+
         row2 = @board[2]
+
+        column = [row0, row1, row2]
 
 
         ## Check if column matches
-        match0 = row0[0] == symbol && row1[0] == symbol && row2[0] == symbol
-        match1 = row0[1] == symbol && row1[1] == symbol && row2[1] == symbol
-        match2 = row0[2] == symbol && row1[2] == symbol && row2[2] == symbol
+        match0 = column.all? {|x| x[0] == symbol}
+        match1 = column.all? {|x| x[1] == symbol}
+        match2 = column.all? {|x| x[2] == symbol}
 
         ## Check diagnals
         match3 = row0[0] == symbol && row1[1] == symbol && row2[2] == symbol
