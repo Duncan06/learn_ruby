@@ -14,11 +14,21 @@ class Mastermind
 
         turn = 0
 
+        # Possible options
+
+        options = ["red", "blue", "yellow", "green", "brown", "purple"]
+
+        @code = generate_code(options)
+
+        puts @code
+
         # Turns begin
 
         while game_playing
 
-            guess = player_guess()
+            puts "It is currently turn #{turn}"
+
+            guess = player_guess(options)
 
             if guess == @code
 
@@ -26,14 +36,14 @@ class Mastermind
 
                 puts "Would you like to play again? y/n"
 
-                play_again?()
+                game_playing = play_again?(options)
 
 
             elsif turn > 13
 
                 puts "You weren't able to solve the code in 12 turns!"
                 
-                play_again?()
+                game_playing = play_again?(options)
 
             else
 
@@ -45,15 +55,11 @@ class Mastermind
 
     end
 
-    def player_guess()
+    def player_guess(options)
 
         puts "Please guess four colors in order from red, blue, yellow, green, brown, and purple."
         
         puts "Use the format red, blue, green, blue."
-
-        # Possible options
-
-        options = ["red", "blue", "yellow", "green", "brown", "purple"]
 
         # Format answer
 
@@ -62,8 +68,6 @@ class Mastermind
         answer = answer.split(',').map(&:strip)
 
         while answer.length != 4
-                
-            puts answer.length
 
             puts "Please select from given colors, as well as only guessing four in the correct format."
 
@@ -93,17 +97,31 @@ class Mastermind
 
     end
 
-    def play_again?()
+    def generate_code(options)
+
+        while @code.length < 4
+
+            @code.push(options[rand(options.length)])
+
+        end
+
+        return @code
+
+    end
+
+    def play_again?(options)
 
         response = gets.chomp.to_s
 
                 if response == "y"
 
-                    game_reset()
+                    game_playing = game_reset()
+
+                    @code = generate_code(options)
 
                 else
 
-                    game_playing == false
+                    false
                 
                 end
 
