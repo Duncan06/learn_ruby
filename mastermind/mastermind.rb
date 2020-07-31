@@ -26,7 +26,7 @@ class Mastermind
 
         puts "Please guess four colors in order from red, blue, yellow, green, brown, and purple."
         
-        puts "Use the format [red, blue, green, blue]."
+        puts "Use the format red, blue, green, blue."
 
         options = ["red", "blue", "yellow", "green", "brown", "purple"]
 
