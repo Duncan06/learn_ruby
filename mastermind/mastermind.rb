@@ -6,17 +6,40 @@ class Mastermind
         
     end
 
+    # Game starts
+
     def play_game()
 
         game_playing = true
 
         turn = 0
 
+        # Turns begin
+
         while game_playing
 
             guess = player_guess()
 
-            puts guess
+            if guess == @code
+
+                puts "You solved the code in #{turn} turns!"
+
+                puts "Would you like to play again? y/n"
+
+                play_again?()
+
+
+            elsif turn > 13
+
+                puts "You weren't able to solve the code in 12 turns!"
+                
+                play_again?()
+
+            else
+
+                turn += 1
+
+            end
 
         end
 
@@ -28,7 +51,11 @@ class Mastermind
         
         puts "Use the format red, blue, green, blue."
 
+        # Possible options
+
         options = ["red", "blue", "yellow", "green", "brown", "purple"]
+
+        # Format answer
 
         answer = gets.chomp.to_s.downcase
 
@@ -46,6 +73,8 @@ class Mastermind
         
         end
 
+        # Check is appropriate colors
+
         good_color = 0
 
         answer.each do |color|
@@ -58,7 +87,35 @@ class Mastermind
 
         end
 
+        # Return input, or call this function again. 
+
         good_color == 4 ? answer : player_guess()
+
+    end
+
+    def play_again?()
+
+        response = gets.chomp.to_s
+
+                if response == "y"
+
+                    game_reset()
+
+                else
+
+                    game_playing == false
+                
+                end
+
+    end
+
+    def game_reset()
+
+        @code = []
+
+        turn = 0
+
+        game_playing = true
 
     end
 end
