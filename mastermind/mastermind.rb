@@ -4,6 +4,8 @@ class Mastermind
 
         @code = []
         
+        @original = {}
+
     end
 
     # Game starts
@@ -21,6 +23,8 @@ class Mastermind
         @code = generate_code(options)
 
         puts @code
+
+        set_original()
 
         # Turns begin
 
@@ -111,19 +115,27 @@ class Mastermind
 
     end
 
+    def set_original()
+
+        for i in 0..3
+
+            @original.key?("#{@code[i]}") ? @original[@code[i]] += 1 : @original[@code[i]] = 1
+
+            puts @code[i]
+
+        end
+
+    end
+
     # Calculate number of correct colors and positions to return to player.
     
     def give_hint(guess)
 
         correct_color_and_position = 0
 
-        original = {}
-
         colors = {}
 
         for i in 0..3
-
-            original.key?("#{@code[i]}") ? original[@code[i]] += 1 : original[@code[i]] = 1
 
             if guess[i] == @code[i]
 
@@ -143,11 +155,13 @@ class Mastermind
 
         number_of_colors = colors.size
 
+        puts @original, colors
+
         colors.each do |k, v|
 
-            if original.has_key?(k)
+            if @original.key?(k)
 
-                original[k] == colors[k] ? correct_color = correct_color + colors[k] : correct_color = correct_color + original[k] - colors[k]
+                @original[k] == colors[k] ? correct_color = correct_color + colors[k] : correct_color = correct_color + @original[k] - colors[k]
             
             end
 
