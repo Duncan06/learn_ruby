@@ -47,6 +47,8 @@ class Mastermind
 
             else
 
+                give_hint(guess)
+
                 turn += 1
 
             end
@@ -57,9 +59,9 @@ class Mastermind
 
     def player_guess(options)
 
-        puts "Please guess four colors in order from red, blue, yellow, green, brown, and purple."
+        puts "Please guess four colors in order from red, blue, yellow, green,\nbrown, and purple.\n\n"
         
-        puts "Use the format red, blue, green, blue."
+        puts "Use the format red, blue, green, blue.\n\n"
 
         # Format answer
 
@@ -93,7 +95,7 @@ class Mastermind
 
         # Return input, or call this function again. 
 
-        good_color == 4 ? answer : player_guess()
+        good_color == 4 ? answer : player_guess(options)
 
     end
 
@@ -106,6 +108,56 @@ class Mastermind
         end
 
         return @code
+
+    end
+
+    # Calculate number of correct colors and positions to return to player.
+    
+    def give_hint(guess)
+
+        correct_color_and_position = 0
+
+        original = {}
+
+        colors = {}
+
+        for i in 0..3
+
+            original.key?("#{@code[i]}") ? original[@code[i]] += 1 : original[@code[i]] = 
+
+            if guess[i] == @code[i]
+
+                correct_color_and_position += 1
+
+                colors.key?("#{guess}") ? colors[guess[i]] += 1 : colors[guess[i]] = 1
+
+            else
+        
+                colors.key?("#{guess}") ? colors[guess[i]] += 1 : colors[guess[i]] = 1
+
+            end
+
+        end
+
+        correct_color = 0
+
+        number_of_colors = colors.size
+
+        colors.each do |k, v|
+
+            if original.has_key?(k)
+
+                original[k] == colors[k] ? correct_color = correct_color + colors[k] : correct_color = correct_color + original[k] - colors[k]
+            
+            end
+
+        end
+
+
+
+        puts "You have #{correct_color_and_position} in the correct position and color, and #{correct_color} correct colors.\n\n"
+
+
 
     end
 
