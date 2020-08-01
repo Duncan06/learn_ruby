@@ -123,7 +123,7 @@ class Mastermind
 
         for i in 0..3
 
-            original.key?("#{@code[i]}") ? original[@code[i]] += 1 : original[@code[i]] = 
+            original.key?("#{@code[i]}") ? original[@code[i]] += 1 : original[@code[i]] = 1
 
             if guess[i] == @code[i]
 
