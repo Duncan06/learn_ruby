@@ -6,6 +6,8 @@ class Mastermind
         
         @original = {}
 
+        @computer_guess = []
+
     end
 
     # Game starts
@@ -14,25 +16,29 @@ class Mastermind
 
         game_playing = true
 
-        turn = 0
+        turn = 0 
+
+        answer = code_breaker_or_giver()
 
         # Possible options
 
         options = ["red", "blue", "yellow", "green", "brown", "purple"]
-
-        @code = generate_code(options)
+            
+        answer ? @code = generate_code(options) : @code = get_code(options)
 
         puts @code
 
         set_original()
 
-        # Turns begin
+    #     # Turns begin
 
         while game_playing
 
-            puts "It is currently turn #{turn}"
+            puts "\nIt is currently turn #{turn}"
 
-            guess = player_guess(options)
+            guess = answer ? player_guess(options) : computer_play(options)
+
+            puts guess
 
             if guess == @code
 
@@ -40,14 +46,18 @@ class Mastermind
 
                 puts "Would you like to play again? y/n"
 
-                game_playing = play_again?(options)
+                game_playing, turn, answer = play_again?(options)
 
 
-            elsif turn > 13
+            elsif turn > 11
 
                 puts "You weren't able to solve the code in 12 turns!"
+
+                puts "#{@code} was the answer."
+
+                puts "Would you like to play again? y/n"
                 
-                game_playing = play_again?(options)
+                game_playing, turn, answer = play_again?(options)
 
             else
 
@@ -68,6 +78,12 @@ class Mastermind
         puts "Use the format red, blue, green, blue.\n\n"
 
         # Format answer
+
+        handle_input(options)
+
+    end
+
+    def handle_input(options)
 
         answer = gets.chomp.to_s.downcase
 
@@ -115,15 +131,83 @@ class Mastermind
 
     end
 
+    def get_code(options)
+
+        puts "\nWhat would you like the code to be? You may choose from red, blue, yellow, \ngreen, brown, and purple.\n\n"
+
+        puts "Use the format red, blue, green, blue.\n\n"
+
+        handle_input(options)
+
+    end
+
     def set_original()
 
         for i in 0..3
 
             @original.key?("#{@code[i]}") ? @original[@code[i]] += 1 : @original[@code[i]] = 1
 
-            puts @code[i]
+        end
+
+    end
+
+    def code_breaker_or_giver()
+
+        puts "Would you like to be the Code Breaker or Giver? Put Breaker or Giver."
+
+        response = gets.chomp.to_s.downcase
+
+        if response == "breaker"
+
+            return true
+
+        elsif response == "giver"
+
+            return false
+
+        else 
+
+            puts "Please select an appropriate option."
+
+            code_breaker_or_giver()
 
         end
+
+    end
+
+    def computer_play(options)
+
+        if @computer_guess != []
+
+            for i in 0..3
+                
+                if @computer_guess[i] == @code[i]
+
+                    next
+
+                else
+
+                    color = options[rand(options.length)]
+
+                    @computer_guess[i] = @computer_guess[i] != color ? color : options[rand(options.length)]
+
+                end
+
+            end
+
+        else
+
+            while @computer_guess.length < 4
+
+                @computer_guess.push(options[rand(options.length)])
+
+            end
+        
+        end
+
+        puts "#{@computer_guess}"
+
+        return @computer_guess
 
     end
 
@@ -155,8 +239,6 @@ class Mastermind
 
         number_of_colors = colors.size
 
-        puts @original, colors
-
         colors.each do |k, v|
 
             if @original.key?(k)
@@ -183,7 +265,15 @@ class Mastermind
 
                     game_playing = game_reset()
 
-                    @code = generate_code(options)
+                    answer = code_breaker_or_giver()
+
+                    answer ? @code = generate_code(options) : @code = get_code(options)
+
+                    turn = 0
+
+                    set_original()
+
+                    return game_playing, turn, answer
 
                 else
 
@@ -197,7 +287,7 @@ class Mastermind
 
         @code = []
 
-        turn = 0
+        @original = {}
 
         game_playing = true
 
