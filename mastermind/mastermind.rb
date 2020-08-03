@@ -6,6 +6,8 @@ class Mastermind
         
         @original = {}
 
+        @colors = {}
+
         @computer_guess = []
 
         @colors_guessed = [[], [], [], []]
@@ -261,7 +263,7 @@ class Mastermind
 
         correct_color_and_position = 0
 
-        colors = {}
+        correct_color = 0
 
         for i in 0..3
 
@@ -269,41 +271,25 @@ class Mastermind
 
                 correct_color_and_position += 1
 
-                colors.key?("#{guess}") ? colors[guess[i]] += 1 : colors[guess[i]] = 1
+                correct_color += 1
 
-            else
-        
-                colors.key?("#{guess}") ? colors[guess[i]] += 1 : colors[guess[i]] = 1
+                @colors.key?("#{guess}") ? @colors[guess[i]] += 1 : @colors[guess[i]] = 1
+
+            else 
+
+                if @original.key?(guess[i]) && @colors.key?(guess[i]) && (@original[guess[i]] > @colors[guess[i]])
+
+                    correct_color += 1
+
+                    @colors.key?("#{guess[i]}") ? @colors[guess[i]] += 1 : @colors[guess[i]] = 1
+
+                end
 
             end
 
         end
-
-        correct_color = 0
-
-        number_of_colors = colors.size
-
-        puts @original
-        
-        puts colors 
-
-        colors.each do |k, v|
-
-            if @original.key?(k)
-
-                @original[k] == colors[k] ? correct_color = colors[k] : correct_color = @original[k] - colors[k]
-
-                puts correct_color
-            
-            end
-
-        end
-
-
 
         puts "You have #{correct_color_and_position} in the correct position and color, and #{correct_color} correct colors.\n\n"
-
-
 
     end
 
