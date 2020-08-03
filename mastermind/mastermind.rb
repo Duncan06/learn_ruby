@@ -8,6 +8,8 @@ class Mastermind
 
         @computer_guess = []
 
+        @colors_guessed = [[], [], [], []]
+
     end
 
     # Game starts
@@ -30,7 +32,7 @@ class Mastermind
 
         set_original()
 
-    #     # Turns begin
+        # Turns begin
 
         while game_playing
 
@@ -141,6 +143,8 @@ class Mastermind
 
     end
 
+    # Set hash for number of each color
+
     def set_original()
 
         for i in 0..3
@@ -150,6 +154,8 @@ class Mastermind
         end
 
     end
+
+    # Take in if person wants to make code or break it.
 
     def code_breaker_or_giver()
 
@@ -175,27 +181,17 @@ class Mastermind
 
     end
 
+    # Have compuer make guesses.
+
     def computer_play(options)
 
         if @computer_guess != []
 
-            for i in 0..3
-                
-                if @computer_guess[i] == @code[i]
-
-                    next
-
-                else
-
-                    color = options[rand(options.length)]
-
-                    @computer_guess[i] = @computer_guess[i] != color ? color : options[rand(options.length)]
-
-                end
-
-            end
+            filter_guess(options)
 
         else
+
+            # Fill guess array.
 
             while @computer_guess.length < 4
 
@@ -208,6 +204,54 @@ class Mastermind
         puts "#{@computer_guess}"
 
         return @computer_guess
+
+    end
+
+    def filter_guess(options)
+
+        for i in 0..3
+                
+            if @computer_guess[i] == @code[i]
+
+                next
+
+            else
+
+                comparison(options, i)       
+
+            end
+
+        end
+
+    end
+
+    def comparison(options, i)
+
+        color = options[rand(options.length)]
+
+        different_color = false
+
+        until different_color
+
+            comparison = @colors_guessed[i].none?{ |x| x == color }
+
+            if  comparison 
+
+                @colors_guessed[i].push(color)
+
+                @computer_guess[i] = color
+                
+                different_color = true
+
+            else
+
+                color = options[rand(options.length)]
+
+                different_color = false
+ 
+            end
+
+        end
 
     end
 
@@ -239,11 +283,17 @@ class Mastermind
 
         number_of_colors = colors.size
 
+        puts @original
+        
+        puts colors 
+
         colors.each do |k, v|
 
             if @original.key?(k)
 
-                @original[k] == colors[k] ? correct_color = correct_color + colors[k] : correct_color = correct_color + @original[k] - colors[k]
+                @original[k] == colors[k] ? correct_color = colors[k] : correct_color = @original[k] - colors[k]
+
+                puts correct_color
             
             end
 
@@ -288,6 +338,8 @@ class Mastermind
         @code = []
 
         @original = {}
+
+        @colors_guessed = [[], [], [], []]
 
         game_playing = true
 
