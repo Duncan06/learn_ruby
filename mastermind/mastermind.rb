@@ -265,6 +265,10 @@ class Mastermind
 
         correct_color = 0
 
+        @colors = {}
+
+        puts @colors.inspect
+
         for i in 0..3
 
             if guess[i] == @code[i]
@@ -273,11 +277,13 @@ class Mastermind
 
                 correct_color += 1
 
-                @colors.key?("#{guess}") ? @colors[guess[i]] += 1 : @colors[guess[i]] = 1
+                @colors.key?("#{guess[i]}") ? @colors[guess[i]] += 1 : @colors[guess[i]] = 1
 
             else 
 
-                if @original.key?(guess[i]) && @colors.key?(guess[i]) && (@original[guess[i]] > @colors[guess[i]])
+                puts @code.count(guess[i]), @colors[guess[i]], guess[i]
+
+                if (@code.include?(guess[i]) && (!@colors.key?(guess[i]) || (@code.count(guess[i]) >= @colors[guess[i]])))
 
                     correct_color += 1
 
@@ -324,6 +330,8 @@ class Mastermind
         @code = []
 
         @original = {}
+
+        @computer_guess = []
 
         @colors_guessed = [[], [], [], []]
 
