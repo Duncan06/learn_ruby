@@ -10,7 +10,13 @@ class Mastermind
 
         @computer_guess = []
 
+        @last_guess = []
+
         @colors_guessed = [[], [], [], []]
+
+        @correct_color_and_position = 0
+
+        @correct_color = 0
 
     end
 
@@ -247,9 +253,46 @@ class Mastermind
 
             else
 
-                color = options[rand(options.length)]
+                puts @correct_color, @correct_color_and_position, @correct_color > @correct_color_and_position
 
-                different_color = false
+                if @correct_color > @correct_color_and_position
+
+                    change = @last_guess
+
+                    for i in 0..2
+
+                        if @last_guess[i] != @code[i]
+
+                            puts "rotate"
+
+                            puts @last_guess[i]
+                            
+                            @last_guess[i+1] != @code[i+1] ? @last_guess[i+1] = @computer_guess[i] : next
+
+                            puts @last_guess[i]
+
+                            if i == 2
+
+                                @last_guess[0] != @code[0] ? @last_guess[0] = @computer_guess[3] : next
+
+                            end
+
+                            @computer_guess = @last_guess
+
+                        end
+
+                    end
+
+                    return @computer_guess
+                        
+
+                else
+
+                    color = options[rand(options.length)]
+
+                    different_color = false
+                
+                end
  
             end
 
@@ -261,9 +304,9 @@ class Mastermind
     
     def give_hint(guess)
 
-        correct_color_and_position = 0
+        @correct_color = 0
 
-        correct_color = 0
+        @correct_color_and_position = 0
 
         @colors = {}
 
@@ -273,9 +316,9 @@ class Mastermind
 
             if guess[i] == @code[i]
 
-                correct_color_and_position += 1
+                @correct_color_and_position += 1
 
-                correct_color += 1
+                @correct_color += 1
 
                 @colors.key?("#{guess[i]}") ? @colors[guess[i]] += 1 : @colors[guess[i]] = 1
 
@@ -283,9 +326,9 @@ class Mastermind
 
                 puts @code.count(guess[i]), @colors[guess[i]], guess[i]
 
-                if (@code.include?(guess[i]) && (!@colors.key?(guess[i]) || (@code.count(guess[i]) >= @colors[guess[i]])))
+                if (@code.include?(guess[i]) && (!@colors.key?(guess[i]) || (@code.count(guess[i]) > @colors[guess[i]])))
 
-                    correct_color += 1
+                    @correct_color += 1
 
                     @colors.key?("#{guess[i]}") ? @colors[guess[i]] += 1 : @colors[guess[i]] = 1
 
@@ -295,7 +338,9 @@ class Mastermind
 
         end
 
-        puts "You have #{correct_color_and_position} in the correct position and color, and #{correct_color} correct colors.\n\n"
+        @last_guess = guess
+
+        puts "You have #{@correct_color_and_position} in the correct position and color, and #{@correct_color} correct colors.\n\n"
 
     end
 
