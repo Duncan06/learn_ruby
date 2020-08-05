@@ -253,37 +253,39 @@ class Mastermind
 
             else
 
-                puts @correct_color, @correct_color_and_position, @correct_color > @correct_color_and_position
-
                 if @correct_color > @correct_color_and_position
 
                     change = @last_guess
 
-                    for i in 0..2
+                    get_indexes = []
 
-                        if @last_guess[i] != @code[i]
+                    for i in 0..3
 
-                            puts "rotate"
+                        if change[i] == @code[i]
 
-                            puts @last_guess[i]
-                            
-                            @last_guess[i+1] != @code[i+1] ? @last_guess[i+1] = @computer_guess[i] : next
-
-                            puts @last_guess[i]
-
-                            if i == 2
-
-                                @last_guess[0] != @code[0] ? @last_guess[0] = @computer_guess[3] : next
-
-                            end
-
-                            @computer_guess = @last_guess
+                            get_indexes.push(i)
 
                         end
 
                     end
 
-                    return @computer_guess
+                    puts "Rotate"
+
+                    puts change.inspect
+
+                    change = change.shuffle
+                    
+                    until change != @last_guess
+
+                        change = change.shuffle
+
+                    end
+
+                    get_indexes.each{ |x| change[x] = @code[x] }
+
+                    puts change.inspect
+
+                    @computer_guess = change
                         
 
                 else
@@ -322,21 +324,45 @@ class Mastermind
 
                 @colors.key?("#{guess[i]}") ? @colors[guess[i]] += 1 : @colors[guess[i]] = 1
 
+                puts "both"
+
             else 
 
-                puts @code.count(guess[i]), @colors[guess[i]], guess[i]
+                puts guess[i]
 
                 if (@code.include?(guess[i]) && (!@colors.key?(guess[i]) || (@code.count(guess[i]) > @colors[guess[i]])))
+
+                    puts "color is assigned +1"
 
                     @correct_color += 1
 
                     @colors.key?("#{guess[i]}") ? @colors[guess[i]] += 1 : @colors[guess[i]] = 1
+
+                else
+
+                    @colors.key?("#{guess[i]}") ? @colors[guess[i]] += 1 : @colors[guess[i]] = 1
+
+                end
+
+                puts @original.inspect, @colors.inspect
+
+                if @original.key?(guess[i]) && @colors.key?(guess[i])
+
+                    puts "true"
+
+                    if @original[guess[i]] < @colors[guess[i]]
+
+                        @colors[guess[i]] = @original[guess[i]]
+
+                    end
 
                 end
 
             end
 
         end
+
+        puts @colors.inspect
 
         @last_guess = guess
 
