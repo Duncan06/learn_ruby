@@ -18,6 +18,8 @@ class Mastermind
 
         @correct_color = 0
 
+        @times = 0
+
     end
 
     # Game starts
@@ -273,13 +275,21 @@ class Mastermind
 
                     puts change.inspect
 
-                    change = change.shuffle
-                    
-                    until change != @last_guess
+                    change = change.shuffle 
 
-                        change = change.shuffle
+                    @times += 1
+
+                    if @times > 20
+
+                        break
 
                     end
+                    
+                    # until change != @last_guess
+
+                    #     change = change.shuffle
+
+                    # end
 
                     get_indexes.each{ |x| change[x] = @code[x] }
 
@@ -330,31 +340,13 @@ class Mastermind
 
                 puts guess[i]
 
-                if (@code.include?(guess[i]) && (!@colors.key?(guess[i]) || (@code.count(guess[i]) > @colors[guess[i]])))
-
-                    puts "color is assigned +1"
-
-                    @correct_color += 1
-
-                    @colors.key?("#{guess[i]}") ? @colors[guess[i]] += 1 : @colors[guess[i]] = 1
-
-                else
-
-                    @colors.key?("#{guess[i]}") ? @colors[guess[i]] += 1 : @colors[guess[i]] = 1
-
-                end
-
+                @colors.key?("#{guess[i]}") ? @colors[guess[i]] += 1 : @colors[guess[i]] = 1
+                
                 puts @original.inspect, @colors.inspect
 
                 if @original.key?(guess[i]) && @colors.key?(guess[i])
 
-                    puts "true"
-
-                    if @original[guess[i]] < @colors[guess[i]]
-
-                        @colors[guess[i]] = @original[guess[i]]
-
-                    end
+                    @original[guess[i]] >= @colors[guess[i]] ? @correct_color += 1 : next 
 
                 end
 
