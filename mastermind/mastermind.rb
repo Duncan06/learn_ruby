@@ -245,7 +245,7 @@ class Mastermind
 
             comparison = @colors_guessed[i].none?{ |x| x == color }
 
-            if  comparison 
+            if  comparison && !(@correct_color > @correct_color_and_position)
 
                 @colors_guessed[i].push(color)
 
@@ -254,6 +254,8 @@ class Mastermind
                 different_color = true
 
             else
+
+                puts @correct_color > @correct_color_and_position
 
                 if @correct_color > @correct_color_and_position
 
@@ -285,11 +287,11 @@ class Mastermind
 
                     end
                     
-                    # until change != @last_guess
+                    until change != @last_guess 
 
-                    #     change = change.shuffle
+                        change = change.shuffle
 
-                    # end
+                    end
 
                     get_indexes.each{ |x| change[x] = @code[x] }
 
@@ -297,6 +299,7 @@ class Mastermind
 
                     @computer_guess = change
                         
+                    return @computer_guess
 
                 else
 
@@ -330,23 +333,43 @@ class Mastermind
 
                 @correct_color_and_position += 1
 
-                @correct_color += 1
-
                 @colors.key?("#{guess[i]}") ? @colors[guess[i]] += 1 : @colors[guess[i]] = 1
 
                 puts "both"
 
             else 
 
-                puts guess[i]
-
                 @colors.key?("#{guess[i]}") ? @colors[guess[i]] += 1 : @colors[guess[i]] = 1
+
+            end
                 
-                puts @original.inspect, @colors.inspect
+            puts @original.inspect, @colors.inspect
 
-                if @original.key?(guess[i]) && @colors.key?(guess[i])
+        end
 
-                    @original[guess[i]] >= @colors[guess[i]] ? @correct_color += 1 : next 
+        @original.each do |k, v| 
+
+            if @original.key?(k) && @colors.key?(k)
+            
+                if @colors[k] == @original[k]
+
+                    @correct_color += @colors[k]
+
+                    puts "added #{k}"
+
+                else
+
+                    if @original[k] > @colors[k]
+
+                        @correct_color += @colors[k]
+
+                        puts "added #{k}"
+
+                    else
+
+                        @correct_color += @original[k]
+                    
+                    end
 
                 end
 
