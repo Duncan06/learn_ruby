@@ -287,17 +287,27 @@ class Mastermind
 
                         puts change.inspect
 
+                        change.each_with_index{|x, y| @colors_guessed[y] != x} ? next : change = @last_guess
+
                         if change.sort != @last_guess.sort
 
                             change = @last_guess
 
-                        end
+                        end 
 
                     end
 
                     puts change.inspect
 
-                    change.each_with_index{|x, y| @colors_guessed[y] << x}
+                    change.each_with_index do |x, y| 
+                        
+                        if change[y] != @code[y]
+                        
+                            @colors_guessed[y] << x
+
+                        end
+
+                    end
 
                     @computer_guess = change
                         
