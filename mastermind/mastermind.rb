@@ -276,26 +276,28 @@ class Mastermind
                     puts "Rotate"
 
                     puts change.inspect
-
-                    change = change.shuffle 
-
-                    @times += 1
-
-                    if @times > 20
-
-                        break
-
-                    end
                     
                     until change != @last_guess 
 
                         change = change.shuffle
 
+                        compare = change
+
+                        get_indexes.each{ |x| change[x] = @code[x] }
+
+                        puts change.inspect
+
+                        if change.sort != @last_guess.sort
+
+                            change = @last_guess
+
+                        end
+
                     end
 
-                    get_indexes.each{ |x| change[x] = @code[x] }
-
                     puts change.inspect
+
+                    change.each_with_index{|x, y| @colors_guessed[y] << x}
 
                     @computer_guess = change
                         
