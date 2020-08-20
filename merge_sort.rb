@@ -2,13 +2,15 @@ def merge_sort(array)
 
     combinations = []
 
+    result = []
+
     sorted = false
 
     sides(array, array.size, combinations)
 
     new_combo = []
 
-    until sorted
+    until sorted 
 
         if combinations.size == 1
 
@@ -16,15 +18,9 @@ def merge_sort(array)
 
         end
 
-        p combinations
-
-        left = 0
-
-        right = 1
-
         if combinations[0].size > 1
 
-            new_combo = []
+            new_combo = new_combo || []
 
             resort = []
 
@@ -36,73 +32,85 @@ def merge_sort(array)
 
             rvalue = nil
 
-            for x in 0..combinations.size/2
+            while true
 
-                if combinations[left] != [] && resort == []
+                if combinations.length == 1
 
-                    p "here 1"
+                    combinations = combinations[0]
 
-                    leftside = combinations.shift
+                    break
 
-                    p leftside
+                end
 
-                    lvalue = leftside.shift
+                if leftside == [] && lvalue == nil
 
-                elsif leftside == [nil]
+                    if rvalue != nil
 
-                    p "here 4"
+                        if rvalue > rightside[0]
 
-                    if rightside != [nil]
+                            resort << rightside.shift
+                        
+                        end
+
+                        resort << rvalue
+
+                    end
+
+                    if rightside != []
 
                         resort.concat(rightside)
 
                     end
 
-                    p rightside
+                    new_combo.concat(resort)
 
-                    p resort
+                    break
 
-                    next
+                elsif combinations[0] != [] && resort == []
+
+                    leftside = combinations.shift
+
+                    lvalue = leftside.shift
 
                 end
 
-                if combinations[right] != [] && resort == []
+                if rightside == [] && rvalue == nil
 
-                    p "here 2"
+                    if lvalue != nil
 
-                    rightside = combinations.shift
+                        if lvalue > leftside[0]
 
-                    p rightside
+                            resort << leftside.shift
+                        
+                        end
 
-                    rvalue = rightside.shift
+                        resort << lvalue
 
-                elsif rightside == [nil]
-
-                    if leftside != [nil]
+                    elsif leftside != []
 
                         resort.concate(leftside)
 
                     end
 
-                    p resort
+                    new_combo.concat(resort)
 
-                    next
+                    break
+
+                elsif combinations[1] != [] && resort == []
+
+                    rightside = combinations.shift
+
+                    rvalue = rightside.shift
 
                 end
-
-                puts lvalue, rvalue
             
-                if leftside != [nil] && rightside != [nil] && lvalue <= rvalue
+                if lvalue <= rvalue
     
                     resort << lvalue
 
                     lvalue = leftside.shift
 
-                    p resort
-
-                    
-
-                elsif leftside != [nil] && rightside != [nil] && lvalue > rvalue
+                elsif lvalue > rvalue
 
                     resort << rvalue
                         
@@ -110,16 +118,24 @@ def merge_sort(array)
 
                 else
 
-                    new_combo << resort
+                    result.concat(resort)
 
                 end
             end
 
-            p combinations, "here5"
+            if resort != []
 
-            combinations = new_combo
+                result << resort
+
+            end
+
+            if combinations == []
+
+                combinations = result
+
+            end
+
             
-            p combinations
 
         else
 
@@ -140,15 +156,15 @@ def merge_sort(array)
 
     end
 
+    p combinations
+
 end
 
 def sides(array, size, combinations)
 
-    if array.length == 2 
+    if array.length <= 2 
 
         combinations << array
-
-        p combinations
 
     else
 
@@ -160,4 +176,4 @@ def sides(array, size, combinations)
 
 end
 
-merge_sort([2,3,4,6,4,8,17,9])
+merge_sort([2,3,4,6,4,8,17,9,10])
