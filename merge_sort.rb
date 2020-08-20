@@ -144,18 +144,20 @@ end
 
 def sides(array, size, combinations)
 
-    if size <= 1
+    if array.length == 2 
 
         combinations << array
 
+        p combinations
+
     else
 
-        left = sides(array[0..size/2], size / 2, combinations)
+        left = sides(array[0..(size/2 - 1)], size / 2, combinations)
 
-        right = sides(array[size/2..size], size / 2, combinations)
+        right = sides(array[size/2..size-1], size / 2, combinations)
 
     end
 
 end
 
-merge_sort([2,3,4,6,4,8,3,9])
+merge_sort([2,3,4,6,4,8,17,9])
