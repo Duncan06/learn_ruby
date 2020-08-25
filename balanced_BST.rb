@@ -70,6 +70,94 @@ class Tree
 
     end
 
+    def find(value)
+
+        if @root.data == nil
+
+            false
+
+        end
+
+        if value == @root.data
+
+            true
+
+        elsif value < @root.data 
+
+            find(@root.left)
+
+        elsif value > @root.data
+
+            find(@root.right)
+
+        end
+
+    end
+
+    def insert(value)
+
+        if @root.data == nil
+
+            @root.data = Node.new(value)
+
+            return
+
+        end
+
+        if value < @root.data
+
+            insert(@root.left)
+
+        else 
+
+            insert(@root.right)
+
+        end
+
+    end
+
+    def delete(value)
+
+        if @root.data == value
+
+            if @root.left == nil && @root.right == nil
+
+                @root.data = nil
+
+            elsif @root.left == nil
+
+                @root.data = @root.right.data
+
+                @root.right = nil
+
+            elsif @root.right == nil
+
+                @root.data = @root.left.data
+
+                @root.left = nil
+
+            else 
+
+                
+
+            end
+
+            return
+
+        end
+
+        if value < @root.data
+
+            delete(@root.left)
+
+        else 
+
+            delete(@root.right)
+
+        end
+
+    end
+
     def to_s
 
         puts preOrder(@root)
