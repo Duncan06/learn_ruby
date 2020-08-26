@@ -94,6 +94,21 @@ class Tree
 
     end
 
+    def min_value(root)
+
+        if root.left == nil
+
+            root.data
+
+        else
+
+            min_value(root.left)
+
+        end
+
+    end
+
+
     def insert(value)
 
         if @root.data == nil
@@ -116,45 +131,56 @@ class Tree
 
     end
 
-    def delete(value)
+    def delete(path=@root, value)
 
-        if @root.data == value
+        if path == nil
 
-            if @root.left == nil && @root.right == nil
+            return path
 
-                @root.data = nil
+        end
 
-            elsif @root.left == nil
+        p path.data, value, "here"
 
-                @root.data = @root.right.data
+        if path.data > value
 
-                @root.right = nil
+            path.left = delete(path.left, value)
 
-            elsif @root.right == nil
+        elsif path.data < value
 
-                @root.data = @root.left.data
+            path.right = delete(path.right, value)
 
-                @root.left = nil
+        else
 
-            else 
+            
+            if path.left == nil
 
-                
+                p "here 3"
+
+                temp = Node.new(path.right)
+
+                return temp
+
+            elsif path.right == nil
+
+                p "here 2"
+
+                temp = Node.new(path.left)
+
+                return temp
 
             end
 
-            return
+            temp = min_value(path.right)
+
+            temp = Node.new(temp)
+
+            path.data = temp.data
+
+            path.right = delete(path.right, temp.data)
 
         end
 
-        if value < @root.data
-
-            delete(@root.left)
-
-        else 
-
-            delete(@root.right)
-
-        end
+        return path
 
     end
 
@@ -166,6 +192,12 @@ class Tree
 
 end
 
-x = Tree.new([1,2,3,4,5,6,7])
+x = Tree.new([1,2,3,4,5,6,7,8,9,10,11,12,13,14,15])
+
+puts x.to_s
+
+x.delete(6)
+
+x.delete(11)
 
 puts x.to_s
