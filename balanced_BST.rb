@@ -70,30 +70,6 @@ class Tree
 
     end
 
-    def find(value)
-
-        if @root.data == nil
-
-            false
-
-        end
-
-        if value == @root.data
-
-            true
-
-        elsif value < @root.data 
-
-            find(@root.left)
-
-        elsif value > @root.data
-
-            find(@root.right)
-
-        end
-
-    end
-
     def least(root=@root)
 
         if root.left == nil
@@ -178,35 +154,37 @@ class Tree
 
     end
 
-    def find(node = nil, value)
+    def find(value)
 
-        if value < @root.data && @root.left != nil
+        node = @root
 
-            node = @root.left
+        while node != nil && node.data != nil
 
-            find(node, value)
+            if value < node.data && node.left != nil
 
-        elsif value > @root.data && @root.right != nil
+                node = node.left
 
-            node = @root.right
+            elsif value > node.data && node.right != nil
 
-            find(node, value)
+                node = node.right
 
-        elsif value == @root.data
+            elsif value == node.data
 
-            return node.to_s
+                puts preOrder(node)
 
-        else
+                return
 
-            puts "Value not in tree."
+            end
 
         end
 
+        puts "Value not in tree."
+
     end
 
-    def to_s(root=@root)
+    def to_s
 
-        puts preOrder(root)
+        puts preOrder(@root)
         
     end
 
@@ -216,5 +194,5 @@ x = Tree.new([1,2,3,4,5,6,7,8,9,10,11,12,13,14,15])
 
 puts x.to_s
 
-puts x.find(10)
+puts x.find(4)
 
