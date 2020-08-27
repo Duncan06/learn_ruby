@@ -178,9 +178,35 @@ class Tree
 
     end
 
-    def to_s
+    def find(node = nil, value)
 
-        puts preOrder(@root)
+        if value < @root.data && @root.left != nil
+
+            node = @root.left
+
+            find(node, value)
+
+        elsif value > @root.data && @root.right != nil
+
+            node = @root.right
+
+            find(node, value)
+
+        elsif value == @root.data
+
+            return node.to_s
+
+        else
+
+            puts "Value not in tree."
+
+        end
+
+    end
+
+    def to_s(root=@root)
+
+        puts preOrder(root)
         
     end
 
@@ -190,6 +216,5 @@ x = Tree.new([1,2,3,4,5,6,7,8,9,10,11,12,13,14,15])
 
 puts x.to_s
 
-x.delete(10)
+puts x.find(10)
 
-puts x.to_s
