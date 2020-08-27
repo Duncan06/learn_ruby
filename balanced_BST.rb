@@ -94,7 +94,7 @@ class Tree
 
     end
 
-    def min_value(root)
+    def least(root=@root)
 
         if root.left == nil
 
@@ -102,7 +102,7 @@ class Tree
 
         else
 
-            min_value(root.left)
+            least(root.left)
 
         end
 
@@ -139,8 +139,6 @@ class Tree
 
         end
 
-        p path.data, value, "here"
-
         if path.data > value
 
             path.left = delete(path.left, value)
@@ -154,15 +152,11 @@ class Tree
             
             if path.left == nil
 
-                p "here 3"
-
                 temp = Node.new(path.right)
 
                 return temp
 
             elsif path.right == nil
-
-                p "here 2"
 
                 temp = Node.new(path.left)
 
@@ -170,7 +164,7 @@ class Tree
 
             end
 
-            temp = min_value(path.right)
+            temp = least(path.right)
 
             temp = Node.new(temp)
 
@@ -196,8 +190,6 @@ x = Tree.new([1,2,3,4,5,6,7,8,9,10,11,12,13,14,15])
 
 puts x.to_s
 
-x.delete(6)
-
-x.delete(11)
+x.delete(10)
 
 puts x.to_s
