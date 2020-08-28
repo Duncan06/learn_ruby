@@ -188,11 +188,105 @@ class Tree
         
     end
 
+    # def level_order
+
+    #     que = []
+
+    #     list = []
+
+    #     current = nil
+
+    #     until que == [] && list != []
+
+    #         if list == []
+
+    #             list << @root.data
+
+    #             if @root.left != nil
+
+    #                 que << @root.left
+
+    #             end
+    
+    #             if @root.right != nil
+    
+    #                 que << @root.right
+
+    #             end
+
+    #         elsif que[0] != nil
+
+    #             current = que.shift
+
+    #             if current.data != nil
+
+    #                 list << current.data
+
+    #             end
+
+    #             if current.left != nil
+
+    #                 que << current.left
+
+    #             end
+
+    #             if current.right != nil
+
+    #                 que << current.right
+
+    #             end
+
+    #         end  
+
+    #     end
+
+    #     return list  
+
+    # end
+
+    def level_order(que=[@root], list=[])
+
+        current = que.shift
+
+        if current.data != nil
+
+            list << current.data
+
+        end
+
+        if current.left != nil
+
+            que << current.left
+
+        end
+
+        if current.right != nil
+
+            que << current.right
+
+        end
+
+        if current.data == nil
+
+            return p list
+
+        end
+
+        level_order(que, list)
+
+    end
+
+        
+
+
+
+
+
 end
 
 x = Tree.new([1,2,3,4,5,6,7,8,9,10,11,12,13,14,15])
 
-puts x.to_s
+# puts x.to_s
 
-puts x.find(4)
+x.level_order
 
