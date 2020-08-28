@@ -276,11 +276,59 @@ class Tree
 
     end
 
-        
+    def inorder(root=@root, list=[])
 
+        if root == nil || root.data == nil
 
+            return
 
+        end
 
+        inorder(root.left, list)
+
+        list << root.data
+
+        inorder(root.right, list)
+
+        return list
+
+    end
+
+    def preorder(root=@root, list=[])
+
+        if root == nil || root.data == nil
+
+            return
+
+        end
+
+        list << root.data
+
+        preorder(root.left, list)
+
+        preorder(root.right, list)
+
+        return list
+
+    end
+
+    def postorder(root=@root, list=[])
+
+        if root == nil || root.data == nil
+
+            return
+
+        end
+
+        postorder(root.left, list)
+
+        postorder(root.right, list)
+
+        list << root.data
+
+        return list
+
+    end
 
 end
 
@@ -288,5 +336,8 @@ x = Tree.new([1,2,3,4,5,6,7,8,9,10,11,12,13,14,15])
 
 # puts x.to_s
 
-x.level_order
+p x.postorder
 
+p x.preorder
+
+p x.inorder
