@@ -330,6 +330,54 @@ class Tree
 
     end
 
+    def height(node)
+
+        place = locate(node)
+
+        descend = place
+
+        height = 0
+
+        current_count = 0
+
+        while descend != nil || descend.data != nil
+
+            if descend.left.data != nil
+
+                descend.left
+
+            elsif descend.right.data != nil
+
+                descend.right
+
+            end
+
+            current_count += 1
+
+        end
+
+    end
+
+    def locate(node, root=@root)
+
+        while root.data != node
+
+            if node < root 
+
+                root = root.left
+
+            else 
+
+                root = root.right
+
+            end
+
+        end
+
+        root
+    
+    end
+
 end
 
 x = Tree.new([1,2,3,4,5,6,7,8,9,10,11,12,13,14,15])
