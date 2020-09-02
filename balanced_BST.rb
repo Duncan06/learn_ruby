@@ -334,27 +334,7 @@ class Tree
 
         place = locate(node)
 
-        descend = place
-
-        height = 0
-
-        current_count = 0
-
-        while descend != nil || descend.data != nil
-
-            if descend.left.data != nil
-
-                descend.left
-
-            elsif descend.right.data != nil
-
-                descend.right
-
-            end
-
-            current_count += 1
-
-        end
+        highest = count_height(place)
 
     end
 
@@ -362,7 +342,7 @@ class Tree
 
         while root.data != node
 
-            if node < root 
+            if node < root.data
 
                 root = root.left
 
@@ -378,6 +358,37 @@ class Tree
     
     end
 
+    def count_height(descend, count=0, current_best=0)
+
+        if count > current_best
+
+            current_best = count
+
+        end
+
+        if descend.left != nil 
+
+            descend = descend.left
+
+            count += 1
+
+            count_height(descend, count)
+
+        end
+
+        if descend.right != nil
+
+            descend.right
+
+            count += 1
+
+            count_height(descend, count)
+
+        end
+
+    end
+
+
 end
 
 x = Tree.new([1,2,3,4,5,6,7,8,9,10,11,12,13,14,15])
@@ -389,3 +400,5 @@ p x.postorder
 p x.preorder
 
 p x.inorder
+
+p x.height(5)
