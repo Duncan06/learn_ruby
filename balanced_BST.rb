@@ -358,13 +358,23 @@ class Tree
     
     end
 
-    def count_height(descend, count=1, current_best=0)
+    def count_height(descend, count=0, current_best=0)
+
+        if count > current_best
+
+            current_best = count
+
+            p "Current best #{current_best}"
+
+        end
 
         if descend.left != nil 
 
             descend = descend.left
 
             count += 1
+
+            p "current best #{current_best}, current data #{descend.data} From left"
 
             count_height(descend, count, current_best)
 
@@ -380,11 +390,7 @@ class Tree
 
         end
 
-        if count > current_best
-
-            current_best = count
-
-        end
+        p "current best #{current_best}, current data #{descend.data}"
 
         current_best
 
