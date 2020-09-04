@@ -358,13 +358,7 @@ class Tree
     
     end
 
-    def count_height(descend, count=0, current_best=0)
-
-        if count > current_best
-
-            current_best = count
-
-        end
+    def count_height(descend, count=1, current_best=0)
 
         if descend.left != nil 
 
@@ -372,7 +366,7 @@ class Tree
 
             count += 1
 
-            count_height(descend, count)
+            count_height(descend, count, current_best)
 
         end
 
@@ -382,9 +376,17 @@ class Tree
 
             count += 1
 
-            count_height(descend, count)
+            count_height(descend, count, current_best)
 
         end
+
+        if count > current_best
+
+            current_best = count
+
+        end
+
+        current_best
 
     end
 
@@ -401,4 +403,4 @@ p x.preorder
 
 p x.inorder
 
-p x.height(5)
+p x.height(8)
