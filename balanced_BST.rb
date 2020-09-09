@@ -360,33 +360,45 @@ class Tree
 
     def count_height(descend, count=0, current_best=0)
 
-        if count > current_best
-
-            current_best = count
-
-            p "Current best #{current_best}"
-
-        end
-
         if descend.left != nil 
 
             descend = descend.left
 
             count += 1
 
-            p "current best #{current_best}, current data #{descend.data} From left"
+            p "current count #{count}, current data #{descend.data} From left"
 
-            count_height(descend, count, current_best)
+            value = count_height(descend, count, current_best)
+
+            if value > current_best
+
+                current_best = value
+
+            end
 
         end
 
         if descend.right != nil
 
-            descend.right
+            descend = descend.right
 
             count += 1
 
-            count_height(descend, count, current_best)
+            p "current count #{count}, current data #{descend.data} From right"
+
+            value = count_height(descend, count, current_best)
+
+            if value > current_best
+
+                current_best = value
+
+            end
+
+        end
+
+        if count > current_best
+
+            current_best = count
 
         end
 
@@ -409,4 +421,4 @@ p x.preorder
 
 p x.inorder
 
-p x.height(8)
+p x.height(12)
