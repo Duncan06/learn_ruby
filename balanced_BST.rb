@@ -408,6 +408,50 @@ class Tree
 
     end
 
+    def depth(node, descend=@root, count=0, count_to_node = 0)
+
+        if descend.left != nil 
+
+            descend = descend.left
+
+            count += 1
+
+            p "current count #{count}, current data #{descend.data} From left"
+
+            if descend.data == node
+
+                count_to_node = count
+
+            else
+
+                depth(descend, count, count_to_node)
+
+            end
+
+        end
+
+        if descend.right != nil
+
+            descend = descend.right
+
+            count += 1
+
+            p "current count #{count}, current data #{descend.data} From right"
+
+            if descend.data == node
+
+                count_to_node = count
+
+            else
+
+                value = depth(descend, count, count_to_node)
+
+            end
+
+        end
+
+    end
+
 
 end
 
@@ -421,4 +465,4 @@ p x.preorder
 
 p x.inorder
 
-p x.height(12)
+p x.depth(12)
