@@ -408,7 +408,21 @@ class Tree
 
     end
 
-    def depth(node, descend=@root, count=0, count_to_node = 0)
+    def find_depth(node, count_to_node=0)
+
+        while count_to_node == 0
+
+            count_to_node = depth(node, count_to_node, @root)
+
+        end
+
+        count_to_node
+
+    end
+
+    def depth(node, count_to_node, descend, count=0)
+
+        p "This is descend currently #{descend}, and it's left #{descend.left}"
 
         if descend.left != nil 
 
@@ -422,11 +436,9 @@ class Tree
 
                 count_to_node = count
 
-            else
-
-                depth(descend, count, count_to_node)
-
             end
+
+            depth(node, count_to_node, descend, count)
 
         end
 
@@ -444,11 +456,13 @@ class Tree
 
             else
 
-                value = depth(descend, count, count_to_node)
+                count_to_node = depth(node, count_to_node, descend, count)
 
             end
 
         end
+
+        count_to_node
 
     end
 
@@ -465,4 +479,4 @@ p x.preorder
 
 p x.inorder
 
-p x.depth(12)
+p x.find_depth(12)
