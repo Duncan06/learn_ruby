@@ -420,11 +420,33 @@ class Tree
 
     end
 
-    def depth(node, count_to_node, descend, count=0)
+    def depth(node, count_to_node, descend, count=0, lsearched=[])
 
         p "This is descend currently #{descend}, and it's left #{descend.left}"
 
-        if descend.left != nil 
+        flag = false
+
+        p lsearched
+
+        p descend
+
+        if descend != nil && lsearched.include?("#{descend.data}")
+
+            flag = true
+
+        end
+
+        p flag
+
+        if descend.left != nil || flag != true
+
+            lsearched << descend.data
+
+            if descend.left == nil
+
+                return count_to_node
+
+            end
 
             descend = descend.left
 
@@ -432,13 +454,13 @@ class Tree
 
             p "current count #{count}, current data #{descend.data} From left"
 
+            count_to_node = depth(node, count_to_node, descend, count, lsearched)
+
             if descend.data == node
 
                 count_to_node = count
 
             end
-
-            depth(node, count_to_node, descend, count)
 
         end
 
@@ -450,13 +472,11 @@ class Tree
 
             p "current count #{count}, current data #{descend.data} From right"
 
+            count_to_node = depth(node, count_to_node, descend, count,lsearched)
+
             if descend.data == node
 
                 count_to_node = count
-
-            else
-
-                count_to_node = depth(node, count_to_node, descend, count)
 
             end
 
