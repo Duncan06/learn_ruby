@@ -408,81 +408,29 @@ class Tree
 
     end
 
-    def find_depth(node, count_to_node=0)
+    def depth(node, root=@root, count=0)
 
-        while count_to_node == 0
+        if root.left != nil && root.data > node 
 
-            count_to_node = depth(node, count_to_node, @root)
-
-        end
-
-        count_to_node
-
-    end
-
-    def depth(node, count_to_node, descend, count=0, lsearched=[])
-
-        p "This is descend currently #{descend}, and it's left #{descend.left}"
-
-        flag = false
-
-        p lsearched
-
-        p descend
-
-        if descend != nil && lsearched.include?("#{descend.data}")
-
-            flag = true
-
-        end
-
-        p flag
-
-        if descend.left != nil || flag != true
-
-            lsearched << descend.data
-
-            if descend.left == nil
-
-                return count_to_node
-
-            end
-
-            descend = descend.left
+            root = root.left
 
             count += 1
 
-            p "current count #{count}, current data #{descend.data} From left"
-
-            count_to_node = depth(node, count_to_node, descend, count, lsearched)
-
-            if descend.data == node
-
-                count_to_node = count
-
-            end
+            count = depth(node, root, count)
 
         end
 
-        if descend.right != nil
+        if root.right != nil && root.data < node  
 
-            descend = descend.right
+            root = root.right
 
             count += 1
 
-            p "current count #{count}, current data #{descend.data} From right"
-
-            count_to_node = depth(node, count_to_node, descend, count,lsearched)
-
-            if descend.data == node
-
-                count_to_node = count
-
-            end
+            count = depth(node, root, count)
 
         end
 
-        count_to_node
+        root.data == nil ? "Value not in tree." : count
 
     end
 
@@ -499,4 +447,4 @@ p x.preorder
 
 p x.inorder
 
-p x.find_depth(12)
+p x.depth(15)
