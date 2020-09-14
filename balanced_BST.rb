@@ -28,7 +28,7 @@ class Tree
 
     def initialize(array)
 
-        @array = array.sort
+        @array = array.sort.uniq
 
         @root = build_tree(@array, 0, @array.length)
 
@@ -488,7 +488,7 @@ end
 
 x = Tree.new([1,2,3,4,5,6,7,8,9,10,11,12,13,14,15])
 
-y = Tree.new([1,2,3,3,3,4,3,3,4,4,4,4,4,43,65,34,23,55,33,66,22,3])
+y = Tree.new([1,1,2,1,1,1,1,1,1,1])
 
 # puts x.to_s
 
