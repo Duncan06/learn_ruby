@@ -28,7 +28,7 @@ class Tree
 
     def initialize(array)
 
-        @array = array.sort.uniq
+        @array = array.sort
 
         @root = build_tree(@array, 0, @array.length)
 
@@ -430,7 +430,7 @@ class Tree
 
     def balanced(root=@root, lvalue=0, rvalue=0)
 
-        p root.data
+        p root.data, rvalue, lvalue
 
         if lvalue > rvalue + 1
 
@@ -462,6 +462,12 @@ class Tree
 
             rvalue += 1
 
+            if root.left != nil
+
+                lvalue += 1
+
+            end
+
             balanced(root.right, lvalue, rvalue)
 
         end
@@ -482,7 +488,7 @@ end
 
 x = Tree.new([1,2,3,4,5,6,7,8,9,10,11,12,13,14,15])
 
-y = Tree.new([1,2,3,3,3,3])
+y = Tree.new([1,2,3,3,3,4,3,3,4,4,4,4,4,43,65,34,23,55,33,66,22,3])
 
 # puts x.to_s
 
