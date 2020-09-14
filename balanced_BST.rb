@@ -366,8 +366,6 @@ class Tree
 
             count += 1
 
-            p "current count #{count}, current data #{descend.data} From left"
-
             value = count_height(descend, count, current_best)
 
             if value > current_best
@@ -384,8 +382,6 @@ class Tree
 
             count += 1
 
-            p "current count #{count}, current data #{descend.data} From right"
-
             value = count_height(descend, count, current_best)
 
             if value > current_best
@@ -401,8 +397,6 @@ class Tree
             current_best = count
 
         end
-
-        p "current best #{current_best}, current data #{descend.data}"
 
         current_best
 
@@ -434,10 +428,61 @@ class Tree
 
     end
 
+    def balanced(root=@root, lvalue=0, rvalue=0)
+
+        p root.data
+
+        if lvalue > rvalue + 1
+
+            "Unbalanced"
+
+        end
+
+        if rvalue > lvalue + 1
+
+            "unbalanced"
+
+        end
+
+        if root.left != nil
+
+            lvalue += 1
+
+            if root.right != nil
+
+                rvalue += 1
+
+            end
+
+            balanced(root.left, lvalue, rvalue)
+
+        end
+
+        if root.right != nil
+
+            rvalue += 1
+
+            balanced(root.right, lvalue, rvalue)
+
+        end
+
+        if rvalue == lvalue || rvalue + 1 == lvalue || lvalue + 1 == rvalue
+
+            "balanced"
+
+        end
+
+
+
+    
+    end
+
 
 end
 
 x = Tree.new([1,2,3,4,5,6,7,8,9,10,11,12,13,14,15])
+
+y = Tree.new([1,2,3,3,3,3])
 
 # puts x.to_s
 
@@ -447,4 +492,4 @@ p x.preorder
 
 p x.inorder
 
-p x.depth(15)
+p y.balanced
