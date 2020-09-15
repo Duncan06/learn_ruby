@@ -54,22 +54,6 @@ class Tree
 
     end
 
-    def preOrder(node)
-
-        if node == nil
-            
-            return
-
-        end
-
-        puts node.data
-
-        preOrder(node.left)
-
-        preOrder(node.right)
-
-    end
-
     def least(root=@root)
 
         if root.left == nil
@@ -434,11 +418,11 @@ class Tree
 
         if rvalue == lvalue || (rvalue + 1) == lvalue || (lvalue + 1) == rvalue
     
-            "balanced"
+            "balanced rvalue #{rvalue} lvalue #{lvalue}"
     
         else
     
-            "unbalanced"
+            "unbalanced rvalue #{rvalue} lvalue #{lvalue}"
     
         end
     
@@ -450,12 +434,6 @@ class Tree
     
             lvalue += 1
     
-            if root.right != nil
-    
-                rvalue += 1
-    
-            end
-
             copy1, copy2 = lvalue, rvalue
     
             lvalue, rvalue = balanced(root.left, lvalue, rvalue)
@@ -473,12 +451,6 @@ class Tree
         if root.right != nil
     
             rvalue += 1
-    
-            if root.left != nil
-    
-                lvalue += 1
-    
-            end
 
             copy1, copy2 = lvalue, rvalue
     
@@ -502,6 +474,14 @@ class Tree
     
     end
 
+    def rebalance(root=[@root])
+
+        list = level_order(root)
+
+        final = Tree.new(list)
+
+    end
+
 
 end
 
@@ -509,13 +489,40 @@ x = Tree.new([1,2,3,4,5,6,7,8,9,10,11,12,13,14,15])
 
 y = Tree.new([1,1,2,1,1,1,1,1,1,1])
 
-# puts x.to_s
 
-p x.postorder
+    
+stuff = Array.new(15){ rand(1..100) }
 
-p x.preorder
+test = Tree.new(stuff)
 
-p x.inorder
+p test.balanced?
 
-p x.balanced?
+test.level_order
+
+p test.preorder
+
+p test.postorder
+
+p test.inorder
+
+stuff = Array.new(40){rand(100..1000)}
+
+test = Tree.new(stuff)
+
+p test.balanced?
+
+test.level_order
+
+test = test.rebalance
+
+p test.balanced?
+
+p test.preorder
+
+p test.postorder
+
+p test.inorder
+
+
+
 
