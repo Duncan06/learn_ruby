@@ -428,61 +428,154 @@ class Tree
 
     end
 
-    def balanced(root=@root, lvalue=0, rvalue=0)
+    def balanced?(root=@root)
 
-        p root.data, rvalue, lvalue
+        lvalue, rvalue = balanced(root)
 
-        if lvalue > rvalue + 1
-
-            "Unbalanced"
-
-        end
-
-        if rvalue > lvalue + 1
-
+        if rvalue == lvalue || (rvalue + 1) == lvalue || (lvalue + 1) == rvalue
+    
+            "balanced"
+    
+        else
+    
             "unbalanced"
-
+    
         end
+    
+    end
 
+    def balanced(root, lvalue=0, rvalue=0)
+    
         if root.left != nil
-
+    
             lvalue += 1
-
+    
             if root.right != nil
-
+    
                 rvalue += 1
-
+    
             end
 
-            balanced(root.left, lvalue, rvalue)
+            copy1, copy2 = lvalue, rvalue
+    
+            lvalue, rvalue = balanced(root.left, lvalue, rvalue)
+
+            if lvalue == nil || rvalue == nil
+
+                lvalue = copy1
+
+                rvalue = copy2
+
+            end
+    
+        end
+    
+        if root.right != nil
+    
+            rvalue += 1
+    
+            if root.left != nil
+    
+                lvalue += 1
+    
+            end
+
+            copy1, copy2 = lvalue, rvalue
+    
+            lvalue, rvalue = balanced(root.right, lvalue, rvalue)
+
+            if lvalue == nil || rvalue == nil
+
+                lvalue = copy1
+
+                rvalue = copy2
+
+            end
+    
+        end
+
+        if root.left != nil || root.right != nil
+    
+            return lvalue, rvalue
 
         end
+    
+    end
+
+
+end
+
+def balanced?(root=@root)
+
+    lvalue, rvalue = balanced(root)
+
+    if rvalue == lvalue || (rvalue + 1) == lvalue || (lvalue + 1) == rvalue
+
+        "balanced"
+
+    else
+
+        "unbalanced"
+
+    end
+
+end
+
+def balanced(root, lvalue=0, rvalue=0)
+    
+    if root.left != nil
+
+        lvalue += 1
 
         if root.right != nil
 
             rvalue += 1
 
-            if root.left != nil
+        end
 
-                lvalue += 1
+        copy1, copy2 = lvalue, rvalue
 
-            end
+        lvalue, rvalue = balanced(root.left, lvalue, rvalue)
 
-            balanced(root.right, lvalue, rvalue)
+        if lvalue == nil || rvalue == nil
+
+            lvalue = copy1
+
+            rvalue = copy2
 
         end
 
-        if rvalue == lvalue || rvalue + 1 == lvalue || lvalue + 1 == rvalue
-
-            "balanced"
-
-        end
-
-
-
-    
     end
 
+    if root.right != nil
+
+        rvalue += 1
+
+        if root.left != nil
+
+            lvalue += 1
+
+        end
+
+        copy1, copy2 = lvalue, rvalue
+
+        lvalue, rvalue = balanced(root.right, lvalue, rvalue)
+
+        if lvalue == nil || rvalue == nil
+
+            lvalue = copy1
+
+            rvalue = copy2
+
+        end
+
+    end
+
+    if root.left != nil || root.right != nil
+
+        return lvalue, rvalue
+
+    end
 
 end
 
@@ -498,4 +591,5 @@ p x.preorder
 
 p x.inorder
 
-p y.balanced
+p x.balanced?
+
