@@ -418,7 +418,7 @@ class Tree
 
         if rvalue == lvalue || (rvalue + 1) == lvalue || (lvalue + 1) == rvalue
     
-            "balanced rvalue #{rvalue} lvalue #{lvalue}"
+            "balanced"
     
         else
     
@@ -474,11 +474,43 @@ class Tree
     
     end
 
-    def rebalance(root=[@root])
+    def rebalance(root=[@root], balanced=false)
 
         list = level_order(root)
 
-        final = Tree.new(list)
+        list = list.sort
+
+        middle = (list.length/2).floor
+
+        while !balanced
+
+            mid = list[middle]
+
+            p "mid #{mid}"
+
+            list1 = list[0..middle-1]
+
+            list2 = list[middle+1..list.length]
+
+            list1 = list1.unshift(mid)
+
+            list = list1.concat(list2)
+
+            p list
+
+            final = Tree.new(list)
+
+            p final.balanced?
+
+            if final.balanced? == "balanced"
+
+                balanced = true
+
+            end
+
+        end
+
+
 
     end
 
@@ -505,7 +537,9 @@ p test.postorder
 
 p test.inorder
 
-stuff = Array.new(40){rand(100..1000)}
+stuff2 = Array.new(20){rand(100..1000)}
+
+stuff.concat(stuff2)
 
 test = Tree.new(stuff)
 
