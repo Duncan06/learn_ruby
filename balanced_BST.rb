@@ -412,7 +412,7 @@ class Tree
 
     end
 
-    def balance(rootn=@root)
+    def balance(root=@root)
 
         return 0 if root.nil?
 
