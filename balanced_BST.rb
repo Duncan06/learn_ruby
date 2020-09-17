@@ -412,108 +412,37 @@ class Tree
 
     end
 
-    def balanced?(root=@root)
+    def balance(rootn=@root)
 
-        lvalue, rvalue = balanced(root)
+        return 0 if root.nil?
 
-        if rvalue == lvalue || (rvalue + 1) == lvalue || (lvalue + 1) == rvalue
-    
-            "balanced"
-    
-        else
-    
-            "unbalanced rvalue #{rvalue} lvalue #{lvalue}"
-    
-        end
-    
-    end
+        left_side = height(root.left.data)
 
-    def balanced(root, lvalue=0, rvalue=0)
-    
-        if root.left != nil
-    
-            lvalue += 1
-    
-            copy1, copy2 = lvalue, rvalue
-    
-            lvalue, rvalue = balanced(root.left, lvalue, rvalue)
+        right_side = height(root.right.data)
 
-            if lvalue == nil || rvalue == nil
+        p "#{left_side} left side, #{right_side} right side"
 
-                lvalue = copy1
+        difference = left_side - right_side
 
-                rvalue = copy2
-
-            end
-    
-        end
-    
-        if root.right != nil
-    
-            rvalue += 1
-
-            copy1, copy2 = lvalue, rvalue
-    
-            lvalue, rvalue = balanced(root.right, lvalue, rvalue)
-
-            if lvalue == nil || rvalue == nil
-
-                lvalue = copy1
-
-                rvalue = copy2
-
-            end
-    
-        end
-
-        if root.left != nil || root.right != nil
-    
-            return lvalue, rvalue
-
-        end
+        difference.abs < 2
     
     end
 
-    def rebalance(root=[@root], balanced=false)
+    def rebalance(node=[@root])
 
-        list = level_order(root)
+        list = level_order(node)
 
-        list = list.sort
-
-        middle = (list.length/2).floor
-
-        while !balanced
-
-            mid = list[middle]
-
-            p "mid #{mid}"
-
-            list1 = list[0..middle-1]
-
-            list2 = list[middle+1..list.length]
-
-            list1 = list1.unshift(mid)
-
-            list = list1.concat(list2)
-
-            p list
-
-            final = Tree.new(list)
-
-            p final.balanced?
-
-            if final.balanced? == "balanced"
-
-                balanced = true
-
-            end
-
-        end
-
-
+        final = Tree.new(list)
 
     end
 
+    def pretty_print(node=@root, prefix = '', is_left = true)
+
+        pretty_print(node.right, "#{prefix}#{is_left ? '|  ' : '   '}", false) if node.right
+        puts "#{prefix}#{is_left ? ' |__ ' : ' |^^ '}#{node.data}"
+        pretty_print(node.left, "#{prefix}#{is_left ? '   ' : '|  '}",true) if node.left
+
+    end
 
 end
 
@@ -527,7 +456,7 @@ stuff = Array.new(15){ rand(1..100) }
 
 test = Tree.new(stuff)
 
-p test.balanced?
+p test.balance
 
 test.level_order
 
@@ -543,19 +472,21 @@ stuff.concat(stuff2)
 
 test = Tree.new(stuff)
 
-p test.balanced?
+p test.balance
 
 test.level_order
 
 test = test.rebalance
 
-p test.balanced?
+p test.balance
 
 p test.preorder
 
 p test.postorder
 
 p test.inorder
+
+p test.pretty_print
 
 
 
