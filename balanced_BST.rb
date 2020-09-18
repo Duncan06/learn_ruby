@@ -69,23 +69,29 @@ class Tree
     end
 
 
-    def insert(value)
+    def insert(root=@root, value)
 
-        if @root.data == nil
-
-            @root.data = Node.new(value)
+        if root == nil
 
             return
 
         end
 
-        if value < @root.data
+        if root.data == nil
 
-            insert(@root.left)
+            root.data = Node.new(value)
+
+            return
+
+        end
+
+        if value < root.data
+
+            root.left = insert(root.left, value)
 
         else 
 
-            insert(@root.right)
+            root.right = insert(root.right, value)
 
         end
 
@@ -444,49 +450,60 @@ class Tree
 
     end
 
+    def start
+
+        stuff = Array.new(15){ rand(1..100) }
+
+        test = Tree.new(stuff)
+
+        p test.balance
+
+        test.level_order
+
+        p test.preorder
+
+        p test.postorder
+
+        p test.inorder
+
+        rand(1..20).times do
+
+            insert(root=@root, rand(1..100))
+
+        end
+ 
+
+        p pretty_print(@root)
+
+
+        puts test.balance
+
+        test.level_order
+
+        test = test.rebalance
+
+        puts balance(@root)
+
+        p test.preorder
+
+        p test.postorder
+
+        p test.inorder
+
+        p test.pretty_print
+
+    end
+
+
 end
 
 x = Tree.new([1,2,3,4,5,6,7,8,9,10,11,12,13,14,15])
 
 y = Tree.new([1,1,2,1,1,1,1,1,1,1])
 
+x.start
 
-    
-stuff = Array.new(15){ rand(1..100) }
 
-test = Tree.new(stuff)
-
-p test.balance
-
-test.level_order
-
-p test.preorder
-
-p test.postorder
-
-p test.inorder
-
-stuff2 = Array.new(20){rand(100..1000)}
-
-stuff.concat(stuff2)
-
-test = Tree.new(stuff)
-
-p test.balance
-
-test.level_order
-
-test = test.rebalance
-
-p test.balance
-
-p test.preorder
-
-p test.postorder
-
-p test.inorder
-
-p test.pretty_print
 
 
 
