@@ -69,31 +69,9 @@ class Tree
     end
 
 
-    def insert(root=@root, value)
+    def insert(value)
 
-        if root == nil
-
-            return
-
-        end
-
-        if root.data == nil
-
-            root.data = Node.new(value)
-
-            return
-
-        end
-
-        if value < root.data
-
-            root.left = insert(root.left, value)
-
-        else 
-
-            root.right = insert(root.right, value)
-
-        end
+        @root = Tree.insert_to_root(@root, value)
 
     end
 
@@ -466,15 +444,9 @@ class Tree
 
         p test.inorder
 
-        rand(1..20).times do
+        5.times { test.insert(rand(1..100)) }
 
-            insert(root=@root, rand(1..100))
-
-        end
- 
-
-        p pretty_print(@root)
-
+        test.pretty_print
 
         puts test.balance
 
@@ -492,6 +464,28 @@ class Tree
 
         p test.pretty_print
 
+    end
+
+    private
+
+    def self.insert_to_root(root, value)
+
+        return Node.new(value) if root.nil?
+
+        return root if value == root.data
+
+        if value < root.data
+
+            root.left = insert_to_root(root.left, value)
+
+        else 
+
+            root.right = insert_to_root(root.right, value)
+
+        end
+
+        root
+    
     end
 
 
