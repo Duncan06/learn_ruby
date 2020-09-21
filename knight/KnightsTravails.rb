@@ -94,31 +94,35 @@ class Board
 
     end
 
-    def knightMove(x, y)
+    def knight_moves(x, y, que=[x], movesTaken=[], current_path=[])
 
-        que = []
+        if x == y
 
-        moves_taken = []
+            current_path << x
 
-        while x != y
+            current_path
 
-             moves = knight([x[0]], x[1])
+        end
 
-             if !moves_taken.include?(x)
+        current = que.shift
 
-                if !que.include?(x)
+        if movesTaken.include?(x)
 
-                    que << x
+            if que.include?(x)
 
-                    moves_taken << x
+                movesTaken << x
 
-                end
+                moves = knight(current[0], current[1])
+
+                moves.each{ |x| que << x }
+
+                current_path << x
+
+                knight_moves(x, y, que, movesTaken, current_path)
 
             end
 
-        
-
-
+        end
 
 end
 
