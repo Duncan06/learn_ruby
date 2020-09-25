@@ -4,15 +4,23 @@ module KnightsTravial
 
     class Board
 
-        attr_accessor :squares
+        attr_accessor :squares, :x, :y
     
         def initialize
     
             @squares = []
+
+            @x = 0
+
+            @y = 0
     
         end
     
         def build_board(x,y)
+
+            @x = x - 1
+
+            @y = y - 1
     
             first = 0
     
@@ -56,7 +64,7 @@ module KnightsTravial
 
                 next_moves.each do |pos|
 
-                    new_moves = Knight.get_moves(pos)
+                    new_moves = Knight.get_moves(self, pos)
 
                     new_moves.reject! { |move| visited.include?(move) }
 

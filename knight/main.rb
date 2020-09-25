@@ -22,4 +22,4 @@ def knight_moves(start, last)
 
 end
 
-knight_moves([1, 3], [2, 7])
+knight_moves([1, 3], [7, 7])
