@@ -61,7 +61,6 @@ module KnightsTravial
 
                 return path << last if next_moves.include? last
 
-
                 next_moves.each do |pos|
 
                     new_moves = Knight.get_moves(self, pos)
@@ -75,8 +74,6 @@ module KnightsTravial
                 end
             
             end
-
-            nil    
 
         end
 
