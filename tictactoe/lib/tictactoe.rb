@@ -1,5 +1,7 @@
 class TicTacToe
 
+    attr_accessor :board
+
     def initialize()
         @board = [
                   [[],[],[]],
@@ -251,5 +253,5 @@ class TicTacToe
     end
 end
 
-x = TicTacToe.new()
-x.play_game()
+# x = TicTacToe.new()
+# x.play_game()
