@@ -66,4 +66,22 @@ describe TicTacToe do
 
     end
 
+    it "decides a move for the first player" do
+
+        game = TicTacToe.new()
+
+        player = double("first")
+
+        turn = 0
+
+        allow(player).to receive(:move).and_return("a")
+
+        result = game.move(turn)
+
+        player.move
+
+        expect(result).to eq(true)
+
+    end
+
 end
