@@ -77,19 +77,29 @@ describe TicTacToe do
 
     describe "#move" do
 
-        let(:input) {StringIO.new('a')}
+        #Alternative global for $stdin, but have to reassign $stdin = STDIN independently without before and after hook
+
+        #let(:input) {StringIO.new('a')}
+
+        before do
+
+            $stdin = StringIO.new("a")
+
+        end
+
+        after do
+
+            $stdin = STDIN
+
+        end
 
         it "asks for player one's move" do
 
             game = TicTacToe.new()
 
-            $stdin = input
-
             result = game.move(0)
 
             expect { print "Where would you like to move player one?" }.to output.to_stdout
-
-            $stdin = STDIN
 
         end
 
@@ -97,13 +107,9 @@ describe TicTacToe do
 
             game = TicTacToe.new()
 
-            $stdin = input
-
             result = game.move(1)
 
             expect { print "Where would you like to move player two?" }.to output.to_stdout
-
-            $stdin = STDIN
 
         end
 
@@ -111,13 +117,9 @@ describe TicTacToe do
 
             game = TicTacToe.new()
 
-            $stdin = input
-
             result = game.move(1)
 
             expect(result).to eq("a")
-
-            $stdin = STDIN
 
         end
 
