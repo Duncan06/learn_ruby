@@ -1,86 +1,139 @@
 require "./lib/tictactoe.rb"
+require 'stringio'
 
 describe TicTacToe do
 
-    it "decides win across top" do
+    describe "#player_wins" do
 
-        game = TicTacToe.new()
+        it "decides win across top" do
 
-        game.board[0][0] = "O"
-        game.board[0][1] = "O"
-        game.board[0][2] = "O"
+            game = TicTacToe.new()
 
-        result = game.player_wins("O")
+            game.board[0][0] = "O"
+            game.board[0][1] = "O"
+            game.board[0][2] = "O"
 
-        expect(result).to eq(true)
+            result = game.player_wins("O")
 
-    end
+            expect(result).to eq(true)
 
-    it "decides win vertically" do
+        end
 
-        game = TicTacToe.new()
+        it "decides win vertically" do
 
-        game.board[0][0] = "O"
-        game.board[1][0] = "O"
-        game.board[2][0] = "O"
+            game = TicTacToe.new()
 
-        result = game.player_wins("O")
+            game.board[0][0] = "O"
+            game.board[1][0] = "O"
+            game.board[2][0] = "O"
 
-        expect(result).to eq(true)
+            result = game.player_wins("O")
 
-    end
+            expect(result).to eq(true)
 
-    it "decides win diagonally" do
+        end
 
-        game = TicTacToe.new()
+        it "decides win diagonally" do
 
-        game.board[0][0] = "O"
-        game.board[1][1] = "O"
-        game.board[2][2] = "O"
+            game = TicTacToe.new()
 
-        result = game.player_wins("O")
+            game.board[0][0] = "O"
+            game.board[1][1] = "O"
+            game.board[2][2] = "O"
 
-        expect(result).to eq(true)
+            result = game.player_wins("O")
 
-    end
+            expect(result).to eq(true)
 
-    it "reports square is empty" do
-
-        game = TicTacToe.new()
-
-        result = game.decider(0,0, "O")
-
-        expect(result).to eq(true)
+        end
 
     end
 
-    it "reports square is full" do
+    describe "#decider" do
 
-        game = TicTacToe.new()
+        it "reports square is empty" do
 
-        game.board[0][0] = "O"
+            game = TicTacToe.new()
 
-        result = game.decider(0,0,"O")
+            result = game.decider(0,0, "O")
 
-        expect(result).to eq(false)
+            expect(result).to eq(true)
+
+        end
+
+        it "reports square is full" do
+
+            game = TicTacToe.new()
+
+            game.board[0][0] = "O"
+
+            result = game.decider(0,0,"O")
+
+            expect(result).to eq(false)
+
+        end
 
     end
 
-    it "decides a move for the first player" do
+    describe "#move" do
 
-        game = TicTacToe.new()
+        let(:input) {StringIO.new('a')}
 
-        player = double("first")
+        it "asks for player one's move" do
 
-        turn = 0
+            game = TicTacToe.new()
 
-        allow(player).to receive(:move).and_return("a")
+            $stdin = input
 
-        result = game.move(turn)
+            result = game.move(0)
 
-        player.move
+            expect { print "Where would you like to move player one?" }.to output.to_stdout
 
-        expect(result).to eq(true)
+            $stdin = STDIN
+
+        end
+
+        it "asks for player two's move" do
+
+            game = TicTacToe.new()
+
+            $stdin = input
+
+            result = game.move(1)
+
+            expect { print "Where would you like to move player two?" }.to output.to_stdout
+
+            $stdin = STDIN
+
+        end
+
+        it "returns user input" do
+
+            game = TicTacToe.new()
+
+            $stdin = input
+
+            result = game.move(1)
+
+            expect(result).to eq("a")
+
+            $stdin = STDIN
+
+        end
+
+    end
+
+    describe "#available_tile" do
+
+        it "checks if available tile accepts input" do
+
+            game = TicTacToe.new()
+
+            result = game.available_tile("a", "O")
+
+            expect(result).to eq(true)
+
+        end
 
     end
 
