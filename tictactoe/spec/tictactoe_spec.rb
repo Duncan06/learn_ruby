@@ -47,6 +47,20 @@ describe TicTacToe do
 
         end
 
+        it "indicates no win" do
+
+            game = TicTacToe.new()
+
+            game.board[0][0] = "O"
+            game.board[1][1] = "X"
+            game.board[2][2] = "O"
+
+            result = game.player_wins("O")
+
+            expect(result).to eq(false)
+
+        end
+
     end
 
     describe "#get_symbols" do
@@ -166,6 +180,18 @@ describe TicTacToe do
             result = game.available_tile("a", "O")
 
             expect(result).to eq(true)
+
+        end
+
+        it "indicates tile is taken" do
+
+            game = TicTacToe.new()
+
+            game.available_tile("a", "O")
+
+            result = game.available_tile("a", "X")
+
+            expect(result).to eq(false)
 
         end
 
