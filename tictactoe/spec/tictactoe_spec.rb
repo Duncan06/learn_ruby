@@ -91,6 +91,8 @@ describe TicTacToe do
 
             expect(result).to eq(["O", "X"])
 
+            $stdin = STDIN
+
         end
 
     end
@@ -196,5 +198,43 @@ describe TicTacToe do
         end
 
     end
+
+    describe "#reset" do
+
+        it "resets game board" do
+
+            game = TicTacToe.new()
+
+            $stdin = StringIO.new('y')
+
+            result = game.reset
+
+            expect(result).to eq([
+                [[],[],[]],
+            [[],[],[]],
+            [[],[],[]]
+            ])
+
+            $stdin = STDIN
+
+        end
+
+        it "does not reset board" do
+
+            game = TicTacToe.new()
+
+            $stdin = StringIO.new("n")
+
+            result = game.reset
+
+            expect(result).to eq(false)
+
+            $stdin = STDIN
+
+        end
+
+    end
+
+
 
 end
