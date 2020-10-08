@@ -114,7 +114,7 @@ class TicTacToe
         return false
     end
 
-    # Visual board to see plays on command line.
+    ## Visual board to see plays on command line.
     def display_board(turn)
 
         board00 = @board[0][0].length < 1? "a" : @board[0][0]

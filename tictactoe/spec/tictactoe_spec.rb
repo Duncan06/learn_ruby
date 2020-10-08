@@ -49,6 +49,38 @@ describe TicTacToe do
 
     end
 
+    describe "#get_symbols" do
+
+        io = StringIO.new
+
+        io.puts "O"
+
+        io.puts "X"
+
+        io.rewind
+
+        $stdin = io
+
+        it "retrieves player symbols and returns correctly" do
+
+            game = TicTacToe.new()
+
+            result = game.get_symbols
+
+            gets 
+
+            expect { print "What would you like player one's marker to be?" }.to output.to_stdout 
+
+            gets 
+
+            expect { print "What would you like player two's marker to be?" }.to output.to_stdout
+
+            expect(result).to eq(["O", "X"])
+
+        end
+
+    end
+
     describe "#decider" do
 
         it "reports square is empty" do
