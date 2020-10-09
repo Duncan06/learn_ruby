@@ -29,7 +29,7 @@ class Connect_Four
 
     end
 
-    def player_wins()
+    def player_wins(color)
 
         row0 = @board[0]
 
@@ -43,7 +43,7 @@ class Connect_Four
 
         row5 = @board[5]
 
-        result = check_win(row0, row1, row2, row3, row4, row5)
+        result = check_win(row0, row1, row2, row3, row4, row5, color)
 
         if result
 
@@ -57,7 +57,7 @@ class Connect_Four
 
     end
 
-    def check_win(row0, row1, row2, row3, row4, row5)
+    def check_win(row0, row1, row2, row3, row4, row5, color)
 
         x = 0
 
