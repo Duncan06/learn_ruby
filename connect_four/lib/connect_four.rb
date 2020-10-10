@@ -72,20 +72,25 @@ class Connect_Four
             column2 = [row2[x..y], row3[x..y], row4[x..y], row5[x..y]]
 
             ## Check if column matches
-            match0 = column0.all? {|x| x[0] == color}
-            match1 = column0.all? {|x| x[1] == color}
-            match2 = column0.all? {|x| x[2] == color}
-            match3 = column0.all? {|x| x[3] == color}
 
-            match4 = column1.all? {|x| x[0] == color}
-            match5 = column1.all? {|x| x[1] == color}
-            match6 = column1.all? {|x| x[2] == color}
-            match7 = column1.all? {|x| x[3] == color}
+            if x == 0 || x == 3
 
-            match8 = column2.all? {|x| x[0] == color}
-            match9 = column2.all? {|x| x[1] == color}
-            match10 = column2.all? {|x| x[2] == color}
-            match11 = column2.all? {|x| x[3] == color}
+                match0 = column0.all? {|x| x[0] == color}
+                match1 = column0.all? {|x| x[1] == color}
+                match2 = column0.all? {|x| x[2] == color}
+                match3 = column0.all? {|x| x[3] == color}
+
+                match4 = column1.all? {|x| x[0] == color}
+                match5 = column1.all? {|x| x[1] == color}
+                match6 = column1.all? {|x| x[2] == color}
+                match7 = column1.all? {|x| x[3] == color}
+
+                match8 = column2.all? {|x| x[0] == color}
+                match9 = column2.all? {|x| x[1] == color}
+                match10 = column2.all? {|x| x[2] == color}
+                match11 = column2.all? {|x| x[3] == color}
+
+            end
 
 
             ## Check if row matches
