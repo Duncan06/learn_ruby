@@ -62,6 +62,20 @@ describe Connect_Four do
             game.board[4][4] = "O"
 
             expect(game.player_wins("O")).to eq(true)
+
+        end
+
+        it "decides backwards diagonal off origin at upper bound" do
+
+            game = Connect_Four.new()
+
+            game.board[5][6] = "O"
+            game.board[4][5] = "O"
+            game.board[3][4] = "O"
+            game.board[2][3] = "O"
+
+            expect(game.player_wins("O")).to eq(true)
+
         end
 
     end

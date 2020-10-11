@@ -102,15 +102,13 @@ class Connect_Four
             match17 = row5[x..y].all? {|x| x == color}
 
             ## Check diagnals
-
-            p row1[0], row2[1], row3[2], row4[3]
-
-            match18 = row0[0] == color && row1[1] == color && row2[2] == color && row3[3] == color
-            match19 = row0[3] == color && row1[2] == color && row2[1] == color && row3[0] == color
-            match20 = row1[0] == color && row2[1] == color && row3[2] == color && row4[3] == color
-            match21 = row1[3] == color && row2[2] == color && row3[1] == color && row4[0] == color
-            match22 = row2[0] == color && row3[1] == color && row4[2] == color && row5[3] == color
-            match23 = row2[3] == color && row3[2] == color && row4[1] == color && row5[0] == color
+            
+            match18 = row0[x] == color && row1[x+1] == color && row2[x+2] == color && row3[x+3] == color
+            match19 = row0[x+3] == color && row1[x+2] == color && row2[x+1] == color && row3[x] == color
+            match20 = row1[x] == color && row2[x+1] == color && row3[x+2] == color && row4[x+3] == color
+            match21 = row1[x+3] == color && row2[x+2] == color && row3[x+1] == color && row4[x] == color
+            match22 = row2[x] == color && row3[x+1] == color && row4[x+2] == color && row5[x+3] == color
+            match23 = row2[x+3] == color && row3[x+2] == color && row4[x+1] == color && row5[x] == color
 
             ## Check for any matches
             if 
@@ -128,8 +126,6 @@ class Connect_Four
             x += 1
 
             y += 1
-
-            p y
 
         end
 
