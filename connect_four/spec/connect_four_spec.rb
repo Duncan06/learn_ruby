@@ -78,6 +78,46 @@ describe Connect_Four do
 
         end
 
+        it "decides column win" do 
+
+            game = Connect_Four.new()
+
+            game.board[5][6] = "O"
+            game.board[4][6] = "O"
+            game.board[3][6] = "O"
+            game.board[2][6] = "O"
+
+            expect(game.player_wins("O")).to eq(true)
+
+        end
+
+        it "decides row in middle of board win" do
+
+            game = Connect_Four.new()
+
+            game.board[3][3] = "O"
+            game.board[3][4] = "O"
+            game.board[3][5] = "O"
+            game.board[3][6] = "O"
+
+            expect(game.player_wins("O")).to eq(true)
+
+        end
+
+        it "decides there is no win" do
+
+            game = Connect_Four.new()
+
+            game.board[2][3] = "O"
+            game.board[3][4] = "O"
+            game.board[3][5] = "O"
+            game.board[3][6] = "O"
+
+            expect(game.player_wins("O")).to eq(false)
+        
+        end
+
+
     end
 
 end
