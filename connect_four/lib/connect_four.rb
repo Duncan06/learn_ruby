@@ -108,7 +108,7 @@ class Connect_Four
             match21 = row1[3] == color && row2[2] == color && row3[1] == color && row4[0] == color
             match22 = row2[0] == color && row3[1] == color && row4[2] == color && row5[3] == color
             match23 = row2[3] == color && row3[2] == color && row4[1] == color && row5[0] == color
-    1
+
             ## Check for any matches
             if 
                 match0 || match1 || match2 || match3 ||
@@ -129,5 +129,7 @@ class Connect_Four
         end
 
         false
+
+    end
 
 end

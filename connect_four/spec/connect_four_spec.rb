@@ -35,7 +35,7 @@ describe Connect_Four do
             game.board[5][2] = "O"
             game.board[5][3] = "O"
 
-            expect(game.player_wins).to eq(true)
+            expect(game.player_wins("O")).to eq(true)
 
         end
 
