@@ -39,6 +39,31 @@ describe Connect_Four do
 
         end
 
+        it "decides diagonal win that from origin" do
+
+            game = Connect_Four.new()
+
+            game.board[0][0] = "O"
+            game.board[1][1] = "O"
+            game.board[2][2] = "O"
+            game.board[3][3] = "O"
+
+            expect(game.player_wins("O")).to eq(true)
+
+        end
+
+        it "decides diagonal win not from origin" do
+
+            game = Connect_Four.new()
+
+            game.board[1][1] = "O"
+            game.board[2][2] = "O"
+            game.board[3][3] = "O"
+            game.board[4][4] = "O"
+
+            expect(game.player_wins("O")).to eq(true)
+        end
+
     end
 
 end
