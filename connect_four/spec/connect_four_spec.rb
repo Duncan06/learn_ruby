@@ -219,5 +219,67 @@ describe Connect_Four do
 
     end
 
+    describe "#player_move" do
+
+        it "takes a player's move" do
+
+            $stdin = StringIO.new("1")
+
+            game = Connect_Four.new()
+
+            result = game.player_move
+
+            expect(result).to eq(1)
+
+            $stdin = STDIN
+
+        end
+
+        it "takes upper bound as move" do
+
+            $stdin = StringIO.new("6")
+
+            game = Connect_Four.new()
+
+            result = game.player_move
+
+            expect(result).to eq(6)
+
+            $stdin = STDIN
+
+        end
+
+        it "reports incorrect input and take correct" do
+
+            io = StringIO.new
+
+            io.puts "stuff"
+
+            io.puts "2"
+
+            io.rewind
+
+            $stdin = io
+
+            game = Connect_Four.new()
+
+            result = game.player_move
+
+            gets
+
+            expect { print "What column would you like to place a chip?" }.to output.to_stdout
+
+            gets
+
+            expect { print "Please enter a number between 1-7." }.to output.to_stdout
+
+            expect(result).to eq(2)
+
+            $stdin = STDIN
+
+        end
+
+    end
+
 end
 

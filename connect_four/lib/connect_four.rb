@@ -107,6 +107,34 @@ class Connect_Four
 
     end
 
+    def player_move()
+
+        puts "What column would you like to place a chip?"
+
+        answer = gets.chomp.to_i
+
+        number = proper_range(answer)
+
+        until number
+
+            puts "Please enter a number between 1-7."
+
+            answer = gets.chomp.to_i
+
+            number = proper_range(answer)
+        
+        end
+
+        answer
+
+    end
+
+    def proper_range(number)
+
+        (number >= 1 && number <= 7) ? true : false
+
+    end
+
     def check_win(row0, row1, row2, row3, row4, row5, color)
 
         x = 0
