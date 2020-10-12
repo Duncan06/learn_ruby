@@ -117,6 +117,105 @@ describe Connect_Four do
         
         end
 
+    end
+
+    describe "#player_names" do
+
+        it "takes two player names" do
+
+            io = StringIO.new
+
+            io.puts "tyler"
+
+            io.puts "jeff"
+
+            io.rewind
+
+            $stdin = io
+
+            game = Connect_Four.new()
+
+            result = game.player_names
+
+            gets
+
+            expect { print "What would you like player one's name to be?" }.to output.to_stdout
+
+            gets
+
+            expect { print "What would you like player two's name to be?" }.to output.to_stdout
+
+            expect(result).to eq(["tyler", "jeff"])
+
+            $stdin = STDIN
+
+        end
+
+    end
+
+    describe "#player_colors" do
+
+        it "asks what color the player would like to be" do
+
+            $stdin = StringIO.new('red')
+            
+            game = Connect_Four.new()
+
+            result = game.player_colors
+
+            expect { print "Would you like to be red or black player one?" }.to output.to_stdout
+
+            expect(result).to eq(["red", "black"])
+
+            $stdin = STDIN
+
+        end
+
+        it "takes black as first player" do
+
+            $stdin = StringIO.new('black')
+
+            game = Connect_Four.new()
+
+            result = game.player_colors
+
+            expect { print "Would you like to be red or black player one?" }.to output.to_stdout
+
+            expect(result).to eq(["black", "red"])
+
+            $stdin = STDIN
+
+        end
+
+        it "asks for another color when wrong input" do
+
+            io = StringIO.new
+
+            io.puts "yellow"
+
+            io.puts "black"
+
+            io.rewind
+
+            $stdin = io
+
+            game = Connect_Four.new()
+
+            result = game.player_colors
+
+            gets
+
+            expect { print "Would you like to be red or black player one?" }.to output.to_stdout
+
+            gets
+
+            expect { print "Please select from red or black." }.to output.to_stdout
+
+            expect(result).to eq(["black", "red"])
+
+            $stdin = STDIN
+
+        end
 
     end
 

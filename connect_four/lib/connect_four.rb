@@ -57,6 +57,56 @@ class Connect_Four
 
     end
 
+    def player_names()
+
+        puts "What would you like your name to be player one?"
+
+        p1 = gets.chomp.to_s
+
+        puts "What would you like your name to be player two?"
+
+        p2 = gets.chomp.to_s
+
+        return p1, p2
+
+    end
+
+    def player_colors()
+
+        puts "Would you like to be red or black player one?"
+
+        color = gets.chomp.to_s
+
+        right_color = check_color(color)
+
+        until right_color
+
+            puts "Please select from red or black."
+
+            color = gets.chomp.to_s
+
+            right_color = check_color(color)
+
+        end
+
+        color == "red"? ["red", "black"] : ["black", "red"]
+
+    end
+
+    def check_color(color)
+
+        if color == "red" || color == "black"
+
+            true
+
+        else
+
+            false
+
+        end
+
+    end
+
     def check_win(row0, row1, row2, row3, row4, row5, color)
 
         x = 0
