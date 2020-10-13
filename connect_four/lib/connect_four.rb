@@ -199,53 +199,56 @@ class Connect_Four
 
     def display_board()
 
-        board00 = @board[0][0].length < 1 ? "_" : @board[0][0]
-        board01 = @board[0][1].length < 1 ? "_" : @board[0][1]
-        board02 = @board[0][2].length < 1 ? "_" : @board[0][2]
-        board03 = @board[0][3].length < 1 ? "_" : @board[0][3]
-        board04 = @board[0][4].length < 1 ? "_" : @board[0][4]
-        board05 = @board[0][5].length < 1 ? "_" : @board[0][5]
-        board06 = @board[0][6].length < 1 ? "_" : @board[0][6]
+        red = "\u26D4"
+        black = "\u26D2"
 
-        board07 = @board[1][0].length < 1 ? "_" : @board[1][0]
-        board08 = @board[1][1].length < 1 ? "_" : @board[1][1]
-        board09 = @board[1][2].length < 1 ? "_" : @board[1][2]
-        board10 = @board[1][3].length < 1 ? "_" : @board[1][3]
-        board11 = @board[1][4].length < 1 ? "_" : @board[1][4]
-        board12 = @board[1][5].length < 1 ? "_" : @board[1][5]
-        board13 = @board[1][6].length < 1 ? "_" : @board[1][6]
+        board00 = @board[0][0].length < 1 ? "_" : @board[0][0] == ["red"] ? red.encode('utf-8') : black.encode('utf-8')
+        board01 = @board[0][1].length < 1 ? "_" : @board[0][1] == ["red"] ? red.encode('utf-8') : black.encode('utf-8')
+        board02 = @board[0][2].length < 1 ? "_" : @board[0][2] == ["red"] ? red.encode('utf-8') : black.encode('utf-8')
+        board03 = @board[0][3].length < 1 ? "_" : @board[0][3] == ["red"] ? red.encode('utf-8') : black.encode('utf-8')
+        board04 = @board[0][4].length < 1 ? "_" : @board[0][4] == ["red"] ? red.encode('utf-8') : black.encode('utf-8')
+        board05 = @board[0][5].length < 1 ? "_" : @board[0][5] == ["red"] ? red.encode('utf-8') : black.encode('utf-8')
+        board06 = @board[0][6].length < 1 ? "_" : @board[0][6] == ["red"] ? red.encode('utf-8') : black.encode('utf-8')
 
-        board14 = @board[2][0].length < 1 ? "_" : @board[2][0]
-        board15 = @board[2][1].length < 1 ? "_" : @board[2][1]
-        board16 = @board[2][2].length < 1 ? "_" : @board[2][2]
-        board17 = @board[2][3].length < 1 ? "_" : @board[2][3]
-        board18 = @board[2][4].length < 1 ? "_" : @board[2][4]
-        board19 = @board[2][5].length < 1 ? "_" : @board[2][5]
-        board20 = @board[2][6].length < 1 ? "_" : @board[2][6]
+        board07 = @board[1][0].length < 1 ? "_" : @board[1][0] == ["red"] ? red.encode('utf-8') : black.encode('utf-8') 
+        board08 = @board[1][1].length < 1 ? "_" : @board[1][1] == ["red"] ? red.encode('utf-8') : black.encode('utf-8')
+        board09 = @board[1][2].length < 1 ? "_" : @board[1][2] == ["red"] ? red.encode('utf-8') : black.encode('utf-8')
+        board10 = @board[1][3].length < 1 ? "_" : @board[1][3] == ["red"] ? red.encode('utf-8') : black.encode('utf-8')
+        board11 = @board[1][4].length < 1 ? "_" : @board[1][4] == ["red"] ? red.encode('utf-8') : black.encode('utf-8')
+        board12 = @board[1][5].length < 1 ? "_" : @board[1][5] == ["red"] ? red.encode('utf-8') : black.encode('utf-8')
+        board13 = @board[1][6].length < 1 ? "_" : @board[1][6] == ["red"] ? red.encode('utf-8') : black.encode('utf-8')
 
-        board21 = @board[3][0].length < 1 ? "_" : @board[3][0]
-        board22 = @board[3][1].length < 1 ? "_" : @board[3][1]
-        board23 = @board[3][2].length < 1 ? "_" : @board[3][2]
-        board24 = @board[3][3].length < 1 ? "_" : @board[3][3]
-        board25 = @board[3][4].length < 1 ? "_" : @board[3][4]
-        board26 = @board[3][5].length < 1 ? "_" : @board[3][5]
-        board27 = @board[3][6].length < 1 ? "_" : @board[3][6]
+        board14 = @board[2][0].length < 1 ? "_" : @board[2][0] == ["red"] ? red.encode('utf-8') : black.encode('utf-8')
+        board15 = @board[2][1].length < 1 ? "_" : @board[2][1] == ["red"] ? red.encode('utf-8') : black.encode('utf-8')
+        board16 = @board[2][2].length < 1 ? "_" : @board[2][2] == ["red"] ? red.encode('utf-8') : black.encode('utf-8')
+        board17 = @board[2][3].length < 1 ? "_" : @board[2][3] == ["red"] ? red.encode('utf-8') : black.encode('utf-8')
+        board18 = @board[2][4].length < 1 ? "_" : @board[2][4] == ["red"] ? red.encode('utf-8') : black.encode('utf-8')
+        board19 = @board[2][5].length < 1 ? "_" : @board[2][5] == ["red"] ? red.encode('utf-8') : black.encode('utf-8')
+        board20 = @board[2][6].length < 1 ? "_" : @board[2][6] == ["red"] ? red.encode('utf-8') : black.encode('utf-8')
 
-        board28 = @board[4][0].length < 1 ? "_" : @board[4][0]
-        board29 = @board[4][1].length < 1 ? "_" : @board[4][1]
-        board30 = @board[4][2].length < 1 ? "_" : @board[4][2]
-        board31 = @board[4][3].length < 1 ? "_" : @board[4][3]
-        board32 = @board[4][4].length < 1 ? "_" : @board[4][4]
-        board33 = @board[4][5].length < 1 ? "_" : @board[4][5]
-        board34 = @board[4][6].length < 1 ? "_" : @board[4][6]
+        board21 = @board[3][0].length < 1 ? "_" : @board[3][0] == ["red"] ? red.encode('utf-8') : black.encode('utf-8')
+        board22 = @board[3][1].length < 1 ? "_" : @board[3][1] == ["red"] ? red.encode('utf-8') : black.encode('utf-8')
+        board23 = @board[3][2].length < 1 ? "_" : @board[3][2] == ["red"] ? red.encode('utf-8') : black.encode('utf-8')
+        board24 = @board[3][3].length < 1 ? "_" : @board[3][3] == ["red"] ? red.encode('utf-8') : black.encode('utf-8')
+        board25 = @board[3][4].length < 1 ? "_" : @board[3][4] == ["red"] ? red.encode('utf-8') : black.encode('utf-8')
+        board26 = @board[3][5].length < 1 ? "_" : @board[3][5] == ["red"] ? red.encode('utf-8') : black.encode('utf-8')
+        board27 = @board[3][6].length < 1 ? "_" : @board[3][6] == ["red"] ? red.encode('utf-8') : black.encode('utf-8')
 
-        board35 = @board[5][0].length < 1 ? "_" : @board[5][0]
-        board36 = @board[5][1].length < 1 ? "_" : @board[5][1]
-        board37 = @board[5][2].length < 1 ? "_" : @board[5][2]
-        board38 = @board[5][3].length < 1 ? "_" : @board[5][3]
-        board39 = @board[5][4].length < 1 ? "_" : @board[5][4]
-        board40 = @board[5][5].length < 1 ? "_" : @board[5][5]
-        board41 = @board[5][6].length < 1 ? "_" : @board[5][6]
+        board28 = @board[4][0].length < 1 ? "_" : @board[4][0] == ["red"] ? red.encode('utf-8') : black.encode('utf-8') 
+        board29 = @board[4][1].length < 1 ? "_" : @board[4][1] == ["red"] ? red.encode('utf-8') : black.encode('utf-8')
+        board30 = @board[4][2].length < 1 ? "_" : @board[4][2] == ["red"] ? red.encode('utf-8') : black.encode('utf-8')
+        board31 = @board[4][3].length < 1 ? "_" : @board[4][3] == ["red"] ? red.encode('utf-8') : black.encode('utf-8')
+        board32 = @board[4][4].length < 1 ? "_" : @board[4][4] == ["red"] ? red.encode('utf-8') : black.encode('utf-8')
+        board33 = @board[4][5].length < 1 ? "_" : @board[4][5] == ["red"] ? red.encode('utf-8') : black.encode('utf-8')
+        board34 = @board[4][6].length < 1 ? "_" : @board[4][6] == ["red"] ? red.encode('utf-8') : black.encode('utf-8')
+
+        board35 = @board[5][0].length < 1 ? "_" : @board[5][0] == ["red"] ? red.encode('utf-8') : black.encode('utf-8')  
+        board36 = @board[5][1].length < 1 ? "_" : @board[5][1] == ["red"] ? red.encode('utf-8') : black.encode('utf-8') 
+        board37 = @board[5][2].length < 1 ? "_" : @board[5][2] == ["red"] ? red.encode('utf-8') : black.encode('utf-8') 
+        board38 = @board[5][3].length < 1 ? "_" : @board[5][3] == ["red"] ? red.encode('utf-8') : black.encode('utf-8') 
+        board39 = @board[5][4].length < 1 ? "_" : @board[5][4] == ["red"] ? red.encode('utf-8') : black.encode('utf-8') 
+        board40 = @board[5][5].length < 1 ? "_" : @board[5][5] == ["red"] ? red.encode('utf-8') : black.encode('utf-8') 
+        board41 = @board[5][6].length < 1 ? "_" : @board[5][6] == ["red"] ? red.encode('utf-8') : black.encode('utf-8')  
 
         puts "
 
