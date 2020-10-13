@@ -82,12 +82,12 @@ describe Connect_Four do
 
             game = Connect_Four.new()
 
-            game.board[5][6] = "O"
-            game.board[4][6] = "O"
-            game.board[3][6] = "O"
-            game.board[2][6] = "O"
+            game.board[5][6] = "red"
+            game.board[4][6] = "red"
+            game.board[3][6] = "red"
+            game.board[2][6] = "red"
 
-            expect(game.player_wins("O")).to eq(true)
+            expect(game.player_wins("red")).to eq(true)
 
         end
 
