@@ -281,5 +281,103 @@ describe Connect_Four do
 
     end
 
+    describe "#move" do
+
+        it "moves a chip to a column on the board" do
+
+            game = Connect_Four.new()
+
+            result = game.move(2, "red")
+
+            expect(game.board).to eq([
+                [[], [], [], [], [], [], []],
+                [[], [], [], [], [], [], []],
+                [[], [], [], [], [], [], []],
+                [[], [], [], [], [], [], []],
+                [[], [], [], [], [], [], []],
+                [[], ["red"], [], [], [], [], []]
+               ])
+
+        end
+
+        it "moves chip on top of another" do
+
+            game = Connect_Four.new()
+
+            game.move(2, "red")
+
+            result = game.move(2, "red")
+
+            expect(game.board).to eq([
+                [[], [], [], [], [], [], []],
+                [[], [], [], [], [], [], []],
+                [[], [], [], [], [], [], []],
+                [[], [], [], [], [], [], []],
+                [[], ["red"], [], [], [], [], []],
+                [[], ["red"], [], [], [], [], []]
+               ])
+
+        end
+
+        it "tells user column is full and asks for other" do
+
+            $stdin = StringIO.new("3")
+
+            game = Connect_Four.new()
+
+            game.board = [
+                [[], ["red"], [], [], [], [], []],
+                [[], ["red"], [], [], [], [], []],
+                [[], ["black"], [], [], [], [], []],
+                [[], ["black"], [], [], [], [], []],
+                [[], ["red"], [], [], [], [], []],
+                [[], ["red"], [], [], [], [], []]
+               ]
+
+            result = game.move(2, "red")
+
+            expect { print "Column full, enter another choice." }.to output.to_stdout
+
+            expect(game.board).to eq([
+                [[], ["red"], [], [], [], [], []],
+                [[], ["red"], [], [], [], [], []],
+                [[], ["black"], [], [], [], [], []],
+                [[], ["black"], [], [], [], [], []],
+                [[], ["red"], [], [], [], [], []],
+                [[], ["red"], ["red"], [], [], [], []]
+               ])
+
+            $stdin = STDIN
+
+        end
+
+    end
+
+    describe "#turn" do
+
+        it "returns the color of who's turn it is" do
+
+            game = Connect_Four.new()
+
+            result = game.turn(["red", "black"])
+
+            expect(result).to eq("red")
+
+        end
+
+        it "returns correct color after initial turn" do
+
+            game = Connect_Four.new()
+
+            game.turn = 4
+
+            result = game.turn(["red", "black"])
+
+            expect(result).to eq("red")
+
+        end
+
+    end
+
 end
 

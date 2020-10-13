@@ -1,6 +1,6 @@
 class Connect_Four
 
-    attr_accessor :board
+    attr_accessor :board, :turn
 
     def initialize()
 
@@ -12,6 +12,8 @@ class Connect_Four
                  [[], [], [], [], [], [], []],
                  [[], [], [], [], [], [], []]
                 ]
+
+        @turn = 0
 
     end
 
@@ -107,6 +109,12 @@ class Connect_Four
 
     end
 
+    def turn(selection)
+
+        selection[@turn%2]
+
+    end
+
     def player_move()
 
         puts "What column would you like to place a chip?"
@@ -132,6 +140,32 @@ class Connect_Four
     def proper_range(number)
 
         (number >= 1 && number <= 7) ? true : false
+
+    end
+
+    def move(column, color)
+
+        height = 5
+
+        while height >= 0
+
+            if @board[height][column - 1] == []
+
+                @board[height][column - 1] = [color]
+
+                p @board
+
+                return
+
+            end
+
+            height -= 1
+
+        end
+
+        puts "Column full, enter another choice."
+
+        move(player_move, color)
 
     end
 
